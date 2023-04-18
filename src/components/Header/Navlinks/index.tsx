@@ -72,7 +72,7 @@ export const NavLinks = ({ isOpen, onToggle }: NavLinksProps) => {
         <MenuItem
           onToggle={onToggle}
           isOpen={isOpen}
-          to=""
+          to="/carrinho"
           activeLink={activeLink}
           handleClick={handleClick}
         >
