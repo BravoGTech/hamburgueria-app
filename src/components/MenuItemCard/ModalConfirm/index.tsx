@@ -25,11 +25,14 @@ interface IModalConfirm {
   item: IMenuItemInterfaceData;
 }
 
-interface IMenuItemData {
-  menuItemId: string;
-  quantity: number;
-  total: number;
-  instructions: string;
+export interface IMenuItemData {
+  MenuItemCart: {
+    menuItemId: string;
+    quantity: number;
+    total: number;
+    instructions: string;
+  };
+  MenuItem: IMenuItemInterfaceData;
 }
 
 export const ModalConfirm = ({ isOpen, onClose, item }: IModalConfirm) => {
@@ -45,17 +48,19 @@ export const ModalConfirm = ({ isOpen, onClose, item }: IModalConfirm) => {
     totalValue = item.price * quantity;
 
     const menuItem: IMenuItemData = {
-      menuItemId: item.id,
-      quantity: quantity,
-      total: totalValue,
-      instructions: obs,
+      MenuItemCart: {
+        menuItemId: item.id,
+        quantity: quantity,
+        total: totalValue,
+        instructions: obs,
+      },
+      MenuItem: item,
     };
-
-    console.log(menuItem);
 
     cart.push(menuItem);
 
     localStorage.setItem("cart", JSON.stringify(cart));
+    onClose();
   };
 
   const options = Array.from({ length: 10 }, (_, i) => i + 1);

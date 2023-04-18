@@ -11,3 +11,12 @@ export const baseMenuItemSchema = z.object({
   category: baseCategorySchema,
   orderItems: z.array(z.unknown()),
 });
+export const menuItemDataSchema = baseMenuItemSchema.omit({
+  orderItems: true,
+  category: true,
+});
+
+export const menuItemSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+});

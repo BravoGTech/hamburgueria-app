@@ -1,12 +1,13 @@
-import { MenuItemProvider } from "../contexts/MenuItemContext"
-import { IProvider } from "../interfaces/ContextInterface"
+import { MenuItemProvider } from "../contexts/MenuItemContext";
+import { OrderProvider } from "../contexts/OrdersContext";
+import { IProvider } from "../interfaces/ContextInterface";
 
-export const Providers = ({children}: IProvider) => {
+export const Providers = ({ children }: IProvider) => {
   return (
     <>
-    <MenuItemProvider>
-      {children}
-    </MenuItemProvider>
+      <OrderProvider>
+        <MenuItemProvider>{children}</MenuItemProvider>
+      </OrderProvider>
     </>
-  )
-}
+  );
+};

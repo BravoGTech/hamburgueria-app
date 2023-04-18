@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { BsCartFill } from "react-icons/bs";
 import { useState } from "react";
 import Logo from "../../../assets/logo.png";
+import { IMenuItemData } from "../../MenuItemCard/ModalConfirm";
 
 interface NavLinksProps {
   isOpen: boolean;
@@ -15,6 +16,10 @@ export const NavLinks = ({ isOpen, onToggle }: NavLinksProps) => {
   const navigate = useNavigate();
 
   const [activeLink, setActiveLink] = useState(location.pathname);
+
+  const cart: IMenuItemData[] = JSON.parse(
+    localStorage.getItem("cart") || "[]"
+  );
 
   const handleClick = (path: string) => {
     setActiveLink(path);
@@ -98,7 +103,7 @@ export const NavLinks = ({ isOpen, onToggle }: NavLinksProps) => {
                 top="-3"
                 left="3"
               >
-                15
+                {cart.length}
               </Flex>
             </Box>
           </Flex>
