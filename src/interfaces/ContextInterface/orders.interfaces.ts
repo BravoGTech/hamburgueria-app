@@ -1,4 +1,3 @@
-import { ICreateOrder } from "./orders.interfaces";
 import { z } from "zod";
 import {
   createOrderSchema,
@@ -13,6 +12,8 @@ export interface IOrderContextData {
     ICreateOrderWithFunction,
     unknown
   >;
+  setOrdersQuantity: React.Dispatch<React.SetStateAction<number>>;
+  ordersQuantity: number
 }
 
 export type ICreateOrder = z.infer<typeof createOrderSchema>;

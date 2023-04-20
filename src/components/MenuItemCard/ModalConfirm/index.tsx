@@ -17,7 +17,8 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { IMenuItemInterfaceData } from "../../../interfaces/ContextInterface/menuItem.interfaces";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { OrderContext } from "../../../contexts/OrdersContext";
 
 interface IModalConfirm {
   isOpen: boolean;
@@ -36,6 +37,7 @@ export interface IMenuItemData {
 }
 
 export const ModalConfirm = ({ isOpen, onClose, item }: IModalConfirm) => {
+  const { ordersQuantity, setOrdersQuantity } = useContext(OrderContext);
   const [obs, setObs] = useState("");
   const [quantity, setQuantity] = useState(1);
 
@@ -58,6 +60,7 @@ export const ModalConfirm = ({ isOpen, onClose, item }: IModalConfirm) => {
     };
 
     cart.push(menuItem);
+    setOrdersQuantity(ordersQuantity + 1);
 
     localStorage.setItem("cart", JSON.stringify(cart));
     onClose();
