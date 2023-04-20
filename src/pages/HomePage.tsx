@@ -1,21 +1,30 @@
-import { Box, Button, Container, Flex, Heading, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  Heading,
+  Image,
+  Text,
+} from "@chakra-ui/react";
 import { IoFastFoodSharp } from "react-icons/io5";
 import { MdDeliveryDining } from "react-icons/md";
 import { Footer } from "../components/Footer";
-import bgHome from "../assets/image 2.png";
+import burger from "../assets/burger.png";
 import { useNavigate } from "react-router-dom";
 
 export const HomePage = () => {
   const navigate = useNavigate();
   return (
     <Box>
-      <Container maxW={"5xl"}>
+      <Container maxW={"5xl"} display={"flex"}>
         <Flex
           as="section"
           flexDir={"column"}
           gap="1rem"
           h={{ base: "100%", md: "90vh" }}
           justify={"center"}
+          w="100%"
         >
           <Heading fontSize={"32px"} letterSpacing={"5%"} color="#DBBE9E">
             Bem vindos à
@@ -42,6 +51,7 @@ export const HomePage = () => {
             Acessar Cardápio
           </Button>
         </Flex>
+        <Image src={burger} pl="5rem" />
       </Container>
 
       <Flex bg="#E1D4C0" mt="2rem" p="2rem 0">
