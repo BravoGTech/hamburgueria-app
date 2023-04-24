@@ -27,7 +27,7 @@ export const MenuItensCard = ({ item }: IMenuItemCardProps) => {
   return (
     <>
       <Grid
-        templateColumns="auto 1fr 100px"
+        templateColumns="auto 1fr auto auto"
         gap={4}
         p="1rem 0"
         color="logo-color"
@@ -48,6 +48,9 @@ export const MenuItensCard = ({ item }: IMenuItemCardProps) => {
         <GridItem>
           <Text as="b">{`R$${item.price.toFixed(2)}`}</Text>
         </GridItem>
+        <GridItem>
+          <Text as="b">{show ? "\/" : ">"}</Text>
+        </GridItem>
       </Grid>
       {show && (
         <Flex
@@ -62,7 +65,7 @@ export const MenuItensCard = ({ item }: IMenuItemCardProps) => {
             src={item.imageURL}
             minW={"200px"}
             w="30%"
-            borderRadius={"10px"}
+            borderRadius={"20px"}
             p="1rem"
           />
           <Flex flexDir={"column"} w="100%" gap="0.5rem" p="1rem 0">

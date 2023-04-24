@@ -14,15 +14,15 @@ export const OrderContext = createContext<IOrderContextData>(
 
 export const OrderProvider = ({ children }: IProvider) => {
   const [ordersQuantity, setOrdersQuantity] = useState(0);
-  const listOrders = async () => {
-    const response = await api.get("/orders");
-    return response.data;
-  };
+  // const listOrders = async () => {
+  //   const response = await api.get("/orders");
+  //   return response.data;
+  // };
 
-  const { data, isFetching, isError, refetch } = useQuery({
-    queryKey: ["orders"],
-    queryFn: listOrders,
-  });
+  // const { data, isFetching, isError, refetch } = useQuery({
+  //   queryKey: ["orders"],
+  //   queryFn: listOrders,
+  // });
 
   const { mutate: createOrder } = useMutation(
     async ({

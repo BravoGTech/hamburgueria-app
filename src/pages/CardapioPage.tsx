@@ -31,14 +31,14 @@ export const CardapioPage = () => {
       </Flex>
       <Flex justify={"center"} gap={{ base: "1rem", md: "3rem" }}>
         <Button
-          bg={selected === "hamburgers" ? "logo-color" : "#E4D8C4"}
-          color={selected === "hamburgers" ? "black-color" : "gray.800"}
+          bg={selected === "Hamburguers" ? "logo-color" : "#E4D8C4"}
+          color={selected === "Hamburguers" ? "black-color" : "gray.800"}
           rounded={"50px"}
           h="50px"
           w="300px"
           transition={"0.3s"}
           _hover={{ bg: "logo-color", color: "black-color" }}
-          onClick={() => handleButtonClick("hamburgers")}
+          onClick={() => handleButtonClick("Hamburgers")}
         >
           Hamburgers
         </Button>
@@ -62,7 +62,7 @@ export const CardapioPage = () => {
           <Spinner />
         ) : (
           cardapio.map((item) => {
-            if (item.category.name === "Hamburgers") {
+            if (item.category.name === "Hamburguers") {
               return (
                 <Fragment key={item.id}>
                   <MenuItensCard item={item} />
