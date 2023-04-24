@@ -1,7 +1,10 @@
-import { createContext } from "react";
-import { IMenuItemContext } from "../interfaces/ContextInterface/menuItem.interfaces";
+import { createContext, useState } from "react";
+import {
+  IMenuItemContext,
+  IMenuItemData,
+} from "../interfaces/ContextInterface/menuItem.interfaces";
 import { IProvider } from "../interfaces/ContextInterface";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { api } from "../services/api";
 
 export const MenuItemContext = createContext<IMenuItemContext>(
@@ -19,8 +22,28 @@ export const MenuItemProvider = ({ children }: IProvider) => {
     queryFn: listMenuItem,
   });
 
+  const { mutate: listItemDetail } = useMutation(
+    async (itemId: string): Promise<IMenuItemData> => {
+      const token = localStorage.getItem("@Parking:Token");
+
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+      return await api.get(`/menuItem/${itemId}/`).then((response) => {
+        return response.data;
+      });
+    },
+    {
+      onSuccess: (response) => {
+        return response;
+      },
+      onError: (error: any) => {
+        console.log(error);
+      },
+    }
+  );
+
   return (
-    <MenuItemContext.Provider value={{ data, isFetching }}>
+    <MenuItemContext.Provider value={{ data, isFetching, listItemDetail }}>
       {children}
     </MenuItemContext.Provider>
   );

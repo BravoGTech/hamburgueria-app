@@ -1,13 +1,23 @@
 import { useState } from "react";
 import { IMenuItemInterfaceData } from "../../interfaces/ContextInterface/menuItem.interfaces";
-import { Flex, Grid, GridItem, Heading, Image, Text } from "@chakra-ui/react";
+import {
+  Flex,
+  Grid,
+  GridItem,
+  Heading,
+  Image,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { BsCartPlusFill } from "react-icons/bs";
+import { ModalConfirm } from "./ModalConfirm";
 
 interface IMenuItemCardProps {
   item: IMenuItemInterfaceData;
 }
 
 export const MenuItensCard = ({ item }: IMenuItemCardProps) => {
+  const { isOpen, onClose, onOpen } = useDisclosure();
   const [show, setShow] = useState(false);
 
   const handleClick = () => {
@@ -87,11 +97,13 @@ export const MenuItensCard = ({ item }: IMenuItemCardProps) => {
             cursor={"pointer"}
             align={"center"}
             justify={"center"}
+            onClick={onOpen}
           >
             <BsCartPlusFill color="white" size={30} />
           </Flex>
         </Flex>
       )}
+      <ModalConfirm isOpen={isOpen} onClose={onClose} item={item} />
     </>
   );
 };

@@ -4,10 +4,15 @@ import { NavLinks } from "./Navlinks";
 import Logo from "../../assets/logo.png";
 import { BsCartFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { IMenuItemData } from "../MenuItemCard/ModalConfirm";
 
 export const Header = () => {
   const { isOpen, onToggle } = useDisclosure();
   const navigate = useNavigate();
+
+  const cart: IMenuItemData[] = JSON.parse(
+    localStorage.getItem("cart") || "[]"
+  );
 
   return (
     <Flex
@@ -35,6 +40,7 @@ export const Header = () => {
           color="primary-color"
           cursor={"pointer"}
           display={{ base: "flex", md: "none" }}
+          onClick={() => navigate("/carrinho")}
         >
           <Box pos={"relative"}>
             <BsCartFill size={25} />
@@ -52,7 +58,7 @@ export const Header = () => {
               top="-3"
               left="3"
             >
-              15
+              {cart.length}
             </Flex>
           </Box>
         </Flex>

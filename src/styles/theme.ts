@@ -19,7 +19,6 @@ export const theme = extendTheme({
       body: {
         backgroundImage: BG,
         backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
       },
     },
