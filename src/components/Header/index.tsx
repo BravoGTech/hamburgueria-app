@@ -4,15 +4,23 @@ import { NavLinks } from "./Navlinks";
 import Logo from "../../assets/logo.png";
 import { BsCartFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import { IMenuItemData } from "../MenuItemCard/ModalConfirm";
+
+import { useContext, useEffect, useState } from "react";
+import { OrderContext } from "../../contexts/OrdersContext";
 
 export const Header = () => {
+  const { ordersQuantity } = useContext(OrderContext);
   const { isOpen, onToggle } = useDisclosure();
+  const [quantity, setQuantity] = useState(
+    JSON.parse(localStorage.getItem("cart") || "[]").length
+  );
+
   const navigate = useNavigate();
 
-  const cart: IMenuItemData[] = JSON.parse(
-    localStorage.getItem("cart") || "[]"
-  );
+  useEffect(() => {
+    const cart = localStorage.getItem("cart") || "[]";
+    setQuantity(cart.length);
+  }, [ordersQuantity]);
 
   return (
     <Flex
@@ -58,7 +66,7 @@ export const Header = () => {
               top="-3"
               left="3"
             >
-              {cart.length}
+              {quantity}
             </Flex>
           </Box>
         </Flex>

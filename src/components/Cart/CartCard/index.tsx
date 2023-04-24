@@ -1,6 +1,7 @@
 import { Button, Flex, Heading, Image, Select, Text } from "@chakra-ui/react";
 import { IMenuItemData } from "../../MenuItemCard/ModalConfirm";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { OrderContext } from "../../../contexts/OrdersContext";
 
 interface ICartCardProp {
   item: IMenuItemData;
@@ -13,6 +14,7 @@ export const CartCard = ({
   onRemove,
   handleTotalValue,
 }: ICartCardProp) => {
+  const { ordersQuantity, setOrdersQuantity } = useContext(OrderContext);
   const [quantity, setQuantity] = useState(item.MenuItemCart.quantity);
 
   const handleAddClick = () => {
@@ -50,6 +52,7 @@ export const CartCard = ({
 
   const handleRemoveClick = () => {
     onRemove(item);
+    setOrdersQuantity(ordersQuantity - 1);
   };
 
   return (

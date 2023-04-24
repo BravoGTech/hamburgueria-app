@@ -1,7 +1,6 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import { IProvider } from "../interfaces/ContextInterface";
 import {
-  ICreateOrder,
   ICreateOrderWithFunction,
   IOrderContextData,
   IReturnCreateOrder,
@@ -14,6 +13,7 @@ export const OrderContext = createContext<IOrderContextData>(
 );
 
 export const OrderProvider = ({ children }: IProvider) => {
+  const [ordersQuantity, setOrdersQuantity] = useState(0);
   const listOrders = async () => {
     const response = await api.get("/orders");
     return response.data;
@@ -46,7 +46,9 @@ export const OrderProvider = ({ children }: IProvider) => {
     }
   );
   return (
-    <OrderContext.Provider value={{ createOrder }}>
+    <OrderContext.Provider
+      value={{ createOrder, setOrdersQuantity, ordersQuantity }}
+    >
       {children}
     </OrderContext.Provider>
   );

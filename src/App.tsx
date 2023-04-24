@@ -23,10 +23,12 @@ function App() {
     };
   }, []);
   return (
-    <Container maxWidth={"8xl"} h={bodyHeight}>
-      <Header />
+    <>
+      <Container maxWidth={"8xl"} h={bodyHeight}>
+        <Header />
+      </Container>
       <Routers />
-    </Container>
+    </>
   );
 }
 

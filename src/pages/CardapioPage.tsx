@@ -29,13 +29,13 @@ export const CardapioPage = () => {
       <Flex align={"center"} justify={"center"} w="100%">
         <Heading size={{ base: "2xl", md: "3xl", lg: "4xl" }}>Cardápio</Heading>
       </Flex>
-      <Flex justify={"center"} gap={"5rem"}>
+      <Flex justify={"center"} gap={{ base: "1rem", md: "3rem" }}>
         <Button
           bg={selected === "hamburgers" ? "logo-color" : "#E4D8C4"}
           color={selected === "hamburgers" ? "black-color" : "gray.800"}
           rounded={"50px"}
           h="50px"
-          w="200px"
+          w="300px"
           transition={"0.3s"}
           _hover={{ bg: "logo-color", color: "black-color" }}
           onClick={() => handleButtonClick("hamburgers")}
@@ -47,7 +47,7 @@ export const CardapioPage = () => {
           color={selected === "bebidas" ? "black-color" : "gray.800"}
           rounded={"50px"}
           h="50px"
-          w="200px"
+          w="300px"
           transition={"0.3s"}
           _hover={{ bg: "logo-color", color: "black-color" }}
           onClick={() => handleButtonClick("bebidas")}
@@ -55,7 +55,7 @@ export const CardapioPage = () => {
           Bebidas
         </Button>
       </Flex>
-      <Container maxW={"4xl"}>
+      <Container maxW={"8xl"}>
         <Heading m="3.125rem 0 1.5rem 0">Hamburguers</Heading>
 
         {isFetching ? (

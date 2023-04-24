@@ -1,7 +1,7 @@
 import { Button, Flex, Heading } from "@chakra-ui/react";
 import { IMenuItemData } from "../MenuItemCard/ModalConfirm";
 import { CartCard } from "./CartCard";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { OrderContext } from "../../contexts/OrdersContext";
 import { ICreateOrder } from "../../interfaces/ContextInterface/orders.interfaces";
 
@@ -72,13 +72,15 @@ export const Cart = () => {
   return (
     <>
       <Flex flexDir={"column"} gap="1rem">
-        {cart.map((item) => {
+        {cart.map((item, index) => {
           return (
-            <CartCard
-              item={item}
-              onRemove={handleRemoveItem}
-              handleTotalValue={handleTotalValue}
-            />
+            <React.Fragment key={index}>
+              <CartCard
+                item={item}
+                onRemove={handleRemoveItem}
+                handleTotalValue={handleTotalValue}
+              />
+            </React.Fragment>
           );
         })}
       </Flex>

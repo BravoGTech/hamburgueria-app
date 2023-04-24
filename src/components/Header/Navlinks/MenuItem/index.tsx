@@ -21,22 +21,20 @@ export const MenuItem = ({
   ...rest
 }: MenuItemProps) => {
   return (
-    <Link onClick={onToggle} href={to} _hover={{ textDecor: "none" }}>
-      <Text
-        textAlign={["left", "left", "center", "center"]}
-        display={"flex"}
-        alignItems="center"
-        align={"center"}
-        fontSize="20px"
-        fontWeight={activeLink === to ? "bold" : "400"}
-        gap="2"
-        fontFamily={"Montserrat, sans-serif"}
-        color={activeLink === to ? "logo-color" : "primary-color"}
-        _hover={{ color: "logo-color" }}
-        {...rest}
-      >
-        {children}
-      </Text>
+    <Link
+      onClick={onToggle}
+      href={to}
+      _hover={{ textDecor: "none", color: "logo-color" }}
+      textAlign={["left", "left", "center", "center"]}
+      display={"flex"}
+      alignItems="center"
+      fontSize="20px"
+      fontWeight={activeLink === to ? "bold" : "400"}
+      gap="2"
+      fontFamily={"Montserrat, sans-serif"}
+      color={activeLink === to ? "logo-color" : "primary-color"}
+    >
+      {children}
     </Link>
   );
 };
