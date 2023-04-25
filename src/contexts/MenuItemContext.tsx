@@ -24,7 +24,7 @@ export const MenuItemProvider = ({ children }: IProvider) => {
 
   const { mutate: listItemDetail } = useMutation(
     async (itemId: string): Promise<IMenuItemData> => {
-      const token = localStorage.getItem("@Parking:Token");
+      const token = localStorage.getItem("@DownTown:Token");
 
       api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 

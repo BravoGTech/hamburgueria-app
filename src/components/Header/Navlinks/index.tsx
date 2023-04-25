@@ -26,7 +26,7 @@ export const NavLinks = ({ isOpen, onToggle }: NavLinksProps) => {
   const [activeLink, setActiveLink] = useState(location.pathname);
   const [auth, setAuth] = useState(false);
 
-  const token = localStorage.getItem("token") || "";
+  const token = localStorage.getItem("@DownTown:Token") || "";
 
   const cart: IMenuItemData[] = JSON.parse(
     localStorage.getItem("cart") || "[]"
@@ -48,6 +48,13 @@ export const NavLinks = ({ isOpen, onToggle }: NavLinksProps) => {
 
   const handleClick = (path: string) => {
     setActiveLink(path);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("cart");
+    localStorage.removeItem("@DownTown:Token");
+    setAuth(false);
+    navigate("/");
   };
 
   return (
@@ -72,15 +79,7 @@ export const NavLinks = ({ isOpen, onToggle }: NavLinksProps) => {
         >
           Home
         </MenuItem>
-        <MenuItem
-          onToggle={onToggle}
-          isOpen={isOpen}
-          to=""
-          activeLink={activeLink}
-          handleClick={handleClick}
-        >
-          Sobre Nós
-        </MenuItem>
+
         <MenuItem
           onToggle={onToggle}
           isOpen={isOpen}
@@ -103,6 +102,7 @@ export const NavLinks = ({ isOpen, onToggle }: NavLinksProps) => {
             {token && auth ? (
               <>
                 <MenuItemOption>Atualizar Cardápio</MenuItemOption>
+                <MenuItemOption onClick={handleLogout}>Logout</MenuItemOption>
               </>
             ) : token && !auth ? (
               <>
@@ -114,7 +114,9 @@ export const NavLinks = ({ isOpen, onToggle }: NavLinksProps) => {
                 <MenuItemOption onClick={() => navigate("/login")}>
                   Login
                 </MenuItemOption>
-                <MenuItemOption>Cadastre-se</MenuItemOption>
+                <MenuItemOption onClick={() => navigate("/register")}>
+                  Cadastre-se
+                </MenuItemOption>
               </>
             )}
           </MenuList>
