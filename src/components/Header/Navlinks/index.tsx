@@ -1,10 +1,20 @@
-import { Box, Divider, Flex, Stack } from "@chakra-ui/react";
+import {
+  Box,
+  Divider,
+  Flex,
+  Menu,
+  MenuButton,
+  MenuItemOption,
+  MenuList,
+  Stack,
+} from "@chakra-ui/react";
 import { MenuItem } from "./MenuItem";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BsCartFill } from "react-icons/bs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Logo from "../../../assets/logo.png";
 import { IMenuItemData } from "../../MenuItemCard/ModalConfirm";
+import jwt_decode from "jwt-decode";
 
 interface NavLinksProps {
   isOpen: boolean;
@@ -16,10 +26,29 @@ export const NavLinks = ({ isOpen, onToggle }: NavLinksProps) => {
   const navigate = useNavigate();
 
   const [activeLink, setActiveLink] = useState(location.pathname);
+  const [auth, setAuth] = useState(false);
+
+  const token = localStorage.getItem("token") || "";
 
   const cart: IMenuItemData[] = JSON.parse(
     localStorage.getItem("cart") || "[]"
   );
+
+  useEffect(() => {
+    if (token) {
+      const decodedToken = jwt_decode<any>(token);
+
+      const { isAdmin } = decodedToken;
+
+      if (!isAdmin) {
+        setAuth(false);
+      } else {
+        setAuth(true);
+      }
+    }
+  }, [token]);
+
+  console.log(auth, token);
 
   const handleClick = (path: string) => {
     setActiveLink(path);
@@ -65,15 +94,33 @@ export const NavLinks = ({ isOpen, onToggle }: NavLinksProps) => {
         >
           Cardápio
         </MenuItem>
-        <MenuItem
-          onToggle={onToggle}
-          isOpen={isOpen}
-          to=""
-          activeLink={activeLink}
-          handleClick={handleClick}
-        >
-          Minha Conta
-        </MenuItem>
+
+        <Menu>
+          <MenuButton
+            fontFamily={"Montserrat"}
+            color={"primary-color"}
+            fontSize={"20px"}
+          >
+            Minha Conta
+          </MenuButton>
+          <MenuList>
+            {token && auth ? (
+              <>
+                <MenuItemOption>Atualizar Cardápio</MenuItemOption>
+              </>
+            ) : token && !auth ? (
+              <>
+                <MenuItemOption>Atualizar Endereço</MenuItemOption>
+                <MenuItemOption>Atualizar Informações</MenuItemOption>
+              </>
+            ) : (
+              <>
+                <MenuItemOption>Login</MenuItemOption>
+                <MenuItemOption>Cadastre-se</MenuItemOption>
+              </>
+            )}
+          </MenuList>
+        </Menu>
         <MenuItem
           onToggle={onToggle}
           isOpen={isOpen}
