@@ -1,6 +1,5 @@
 import {
   Box,
-  Divider,
   Flex,
   Menu,
   MenuButton,
@@ -12,7 +11,6 @@ import { MenuItem } from "./MenuItem";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BsCartFill } from "react-icons/bs";
 import { useEffect, useState } from "react";
-import Logo from "../../../assets/logo.png";
 import { IMenuItemData } from "../../MenuItemCard/ModalConfirm";
 import jwt_decode from "jwt-decode";
 
@@ -47,8 +45,6 @@ export const NavLinks = ({ isOpen, onToggle }: NavLinksProps) => {
       }
     }
   }, [token]);
-
-  console.log(auth, token);
 
   const handleClick = (path: string) => {
     setActiveLink(path);
@@ -115,7 +111,9 @@ export const NavLinks = ({ isOpen, onToggle }: NavLinksProps) => {
               </>
             ) : (
               <>
-                <MenuItemOption>Login</MenuItemOption>
+                <MenuItemOption onClick={() => navigate("/login")}>
+                  Login
+                </MenuItemOption>
                 <MenuItemOption>Cadastre-se</MenuItemOption>
               </>
             )}
