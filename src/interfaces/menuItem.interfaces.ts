@@ -1,9 +1,11 @@
 import { UseMutateFunction } from "@tanstack/react-query";
 import {
   baseMenuItemSchema,
+  createMenuItemSchema,
   menuItemDataSchema,
-} from "./../../schemas/menuItem.shemas";
+} from "../schemas/menuItem.schemas";
 import { z } from "zod";
+import { FieldValues } from "react-hook-form";
 
 export interface IMenuItemContext {
   data: IMenuItemInterfaceData[];
@@ -28,3 +30,6 @@ export interface IMenuItemContext {
 export type IMenuItemInterfaceData = z.infer<typeof baseMenuItemSchema>;
 
 export type IMenuItemData = z.infer<typeof menuItemDataSchema>;
+
+export type IMenuItemCreate = z.infer<typeof createMenuItemSchema>;
+export type IMenuItemCreateWithFieldValues = IMenuItemCreate & FieldValues;

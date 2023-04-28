@@ -2,7 +2,7 @@ import { z } from "zod";
 import {
   createOrderSchema,
   returnCreateOrderSchema,
-} from "../../schemas/orders.schemas";
+} from "../schemas/orders.schemas";
 import { UseMutateFunction } from "@tanstack/react-query";
 
 export interface IOrderContextData {
@@ -13,7 +13,7 @@ export interface IOrderContextData {
     unknown
   >;
   setOrdersQuantity: React.Dispatch<React.SetStateAction<number>>;
-  ordersQuantity: number
+  ordersQuantity: number;
 }
 
 export type ICreateOrder = z.infer<typeof createOrderSchema>;

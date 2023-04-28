@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { IProvider } from "../interfaces/ContextInterface";
+import { IProvider } from "../interfaces";
 import { useMutation } from "@tanstack/react-query";
 import {
   ICreateUserMutation,

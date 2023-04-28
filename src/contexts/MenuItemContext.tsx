@@ -2,8 +2,8 @@ import { createContext, useState } from "react";
 import {
   IMenuItemContext,
   IMenuItemData,
-} from "../interfaces/ContextInterface/menuItem.interfaces";
-import { IProvider } from "../interfaces/ContextInterface";
+} from "../interfaces/menuItem.interfaces";
+import { IProvider } from "../interfaces";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { api } from "../services/api";
 

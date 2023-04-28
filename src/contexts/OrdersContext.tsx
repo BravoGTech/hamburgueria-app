@@ -1,10 +1,10 @@
 import { createContext, useState } from "react";
-import { IProvider } from "../interfaces/ContextInterface";
+import { IProvider } from "../interfaces";
 import {
   ICreateOrderWithFunction,
   IOrderContextData,
   IReturnCreateOrder,
-} from "../interfaces/ContextInterface/orders.interfaces";
+} from "../interfaces/orders.interfaces";
 import { api } from "../services/api";
 import { useMutation, useQuery } from "@tanstack/react-query";
 

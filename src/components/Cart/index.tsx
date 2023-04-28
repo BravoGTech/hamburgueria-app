@@ -3,7 +3,7 @@ import { IMenuItemData } from "../MenuItemCard/ModalConfirm";
 import { CartCard } from "./CartCard";
 import React, { useContext, useEffect, useState } from "react";
 import { OrderContext } from "../../contexts/OrdersContext";
-import { ICreateOrder } from "../../interfaces/ContextInterface/orders.interfaces";
+import { ICreateOrder } from "../../interfaces/orders.interfaces";
 
 export const Cart = () => {
   const { createOrder } = useContext(OrderContext);

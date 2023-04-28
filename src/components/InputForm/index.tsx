@@ -17,7 +17,7 @@ interface IFormInputProps<T extends FieldValues> {
   errorMessage?: string;
   maxLength?: number;
   pattern?: string;
-  value?: string
+  value?: string;
 }
 
 export const InputForm = <T extends FieldValues>({

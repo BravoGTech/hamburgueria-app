@@ -20,3 +20,13 @@ export const menuItemSchema = z.object({
   id: z.string(),
   name: z.string(),
 });
+
+export const createMenuItemSchema = baseMenuItemSchema
+  .omit({
+    id: true,
+    category: true,
+    orderItems: true,
+  })
+  .extend({
+    price: z.string(),
+  });

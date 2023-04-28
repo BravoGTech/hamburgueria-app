@@ -16,7 +16,7 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
-import { IMenuItemInterfaceData } from "../../../interfaces/ContextInterface/menuItem.interfaces";
+import { IMenuItemInterfaceData } from "../../../interfaces/menuItem.interfaces";
 import { useContext, useState } from "react";
 import { OrderContext } from "../../../contexts/OrdersContext";
 

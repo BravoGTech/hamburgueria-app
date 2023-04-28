@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IMenuItemInterfaceData } from "../../interfaces/ContextInterface/menuItem.interfaces";
+import { IMenuItemInterfaceData } from "../../interfaces/menuItem.interfaces";
 import {
   Flex,
   Grid,
@@ -49,7 +49,7 @@ export const MenuItensCard = ({ item }: IMenuItemCardProps) => {
           <Text as="b">{`R$${item.price.toFixed(2)}`}</Text>
         </GridItem>
         <GridItem>
-          <Text as="b">{show ? "\/" : ">"}</Text>
+          <Text as="b">{show ? "/" : ">"}</Text>
         </GridItem>
       </Grid>
       {show && (
