@@ -2,60 +2,54 @@ import {
   Button,
   Flex,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Input,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
   Select,
   Spinner,
   Textarea,
 } from "@chakra-ui/react";
 import { InputForm } from "../InputForm";
-import { FieldValue, FieldValues, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import { CategoriesContext } from "../../contexts/CategoriesContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createMenuItemSchema } from "../../schemas/menuItem.schemas";
-import { IMenuItemCreate } from "../../interfaces/menuItem.interfaces";
-import PriceInput from "../PriceInput";
+import { MenuItemContext } from "../../contexts/MenuItemContext";
+import {
+  IMenuItemCreate,
+  IMenuItemMutation,
+} from "../../interfaces/menuItem.interfaces";
 
 export const CreateMenuItem = () => {
   const { data: categories, isFetching } = useContext(CategoriesContext);
+
+  const { createMenuItem, menuItemDeatilData } = useContext(MenuItemContext);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: zodResolver(createMenuItemSchema) });
+  } = useForm<IMenuItemCreate>({ resolver: zodResolver(createMenuItemSchema) });
+  const [price, setPrice] = useState<string>("");
 
-  const [price, setPrice] = useState<string | null>(null);
+  const onSubmit: SubmitHandler<IMenuItemCreate> = (data) => {
+    let priceWithoutCurrency = data.price.replace("R$", "").trim();
+    let formatedCurrency = priceWithoutCurrency.replace(",", ".");
+    const newData: IMenuItemMutation = {
+      ...data,
+      price: +formatedCurrency,
+    };
 
-  // const format = (valueAsString: string) => {
-  //   if (+valueAsString / 100 < 0) {
-  //     const minValue = 0;
-  //     setPrice(
-  //       minValue.toLocaleString("pt-BR", {
-  //         style: "currency",
-  //         currency: "BRL",
-  //       })
-  //     );
-  //   } else {
-  //     const formatedValue = (+valueAsString / 100).toLocaleString("pt-BR", {
-  //       style: "currency",
-  //       currency: "BRL",
-  //     });
-  //     console.log(formatedValue);
-
-  //     setPrice(formatedValue);
-  //   }
-  // };
-
-  const onSubmit = (data: FieldValues) => {
-    console.log(data);
+    createMenuItem(newData);
   };
-  console.log(errors);
+
+  const format = (price: string) => {
+    let priceWithoutCurrency = price.replace("R$", "").trim();
+    let priceWithCurrency = `R$ ${priceWithoutCurrency}`;
+    setPrice(priceWithCurrency);
+  };
+
   return (
     <Flex
       as="form"
@@ -72,6 +66,8 @@ export const CreateMenuItem = () => {
         type="text"
         register={register}
         label="Nome"
+        error={errors.name}
+        errorMessage={errors.name?.message}
       />
       <InputForm
         name={"imageURL"}
@@ -79,16 +75,26 @@ export const CreateMenuItem = () => {
         type="text"
         register={register}
         label="Imagem"
-      />
-      <InputForm
-        name={"price"}
-        placeHolder="Digite o preço"
-        type="number"
-        register={register}
-        label="Preço"
+        error={errors.imageURL}
+        errorMessage={errors.imageURL?.message}
       />
 
-      <FormControl>
+      <FormControl isInvalid={!!errors}>
+        <FormLabel color={"primary-color"}>Preço</FormLabel>
+        <Input
+          bg="title-color"
+          borderRadius={"20px"}
+          placeholder="Digite o preço do produto"
+          {...register("price")}
+          onChange={(e) => format(e.target.value)}
+          value={price}
+          type="text"
+        />
+        {!!errors.price && (
+          <FormErrorMessage>{errors.price.message}</FormErrorMessage>
+        )}
+      </FormControl>
+      <FormControl isInvalid={!!errors}>
         <FormLabel color={"primary-color"}>Descrição</FormLabel>
         <Textarea
           bg="title-color"
@@ -96,8 +102,11 @@ export const CreateMenuItem = () => {
           placeholder="Digite a descrição do produto"
           {...register("description")}
         />
+        {errors.description && (
+          <FormErrorMessage>{errors.description.message}</FormErrorMessage>
+        )}
       </FormControl>
-      <FormControl>
+      <FormControl isInvalid={!!errors}>
         <FormLabel color={"primary-color"}>Categoria</FormLabel>
         <Select
           {...register("categoryId")}
@@ -116,7 +125,9 @@ export const CreateMenuItem = () => {
           )}
         </Select>
       </FormControl>
-      <Button type="submit">Adicionar</Button>
+      <Button bg="logo-color" border={"20px"} type="submit">
+        Adicionar
+      </Button>
     </Flex>
   );
 };

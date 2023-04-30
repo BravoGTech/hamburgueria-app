@@ -1,11 +1,12 @@
+import { AxiosError } from "axios";
 import { UseMutateFunction } from "@tanstack/react-query";
 import {
   baseMenuItemSchema,
+  createMenuItemRequestSchema,
   createMenuItemSchema,
   menuItemDataSchema,
 } from "../schemas/menuItem.schemas";
 import { z } from "zod";
-import { FieldValues } from "react-hook-form";
 
 export interface IMenuItemContext {
   data: IMenuItemInterfaceData[];
@@ -23,8 +24,19 @@ export interface IMenuItemContext {
     string,
     unknown
   >;
-
-  // menuItemDetailData: IMenuItemData | undefined;
+  createMenuItem: UseMutateFunction<
+    IMenuItemInterfaceData,
+    any,
+    IMenuItemMutation,
+    unknown
+  >;
+  menuItemDeatilData: IMenuItemData | undefined;
+  updateMenuItem: UseMutateFunction<
+    IMenuItemInterfaceData,
+    AxiosError<unknown, any>,
+    IMenuItemUpdateMutation,
+    unknown
+  >;
 }
 
 export type IMenuItemInterfaceData = z.infer<typeof baseMenuItemSchema>;
@@ -32,4 +44,10 @@ export type IMenuItemInterfaceData = z.infer<typeof baseMenuItemSchema>;
 export type IMenuItemData = z.infer<typeof menuItemDataSchema>;
 
 export type IMenuItemCreate = z.infer<typeof createMenuItemSchema>;
-export type IMenuItemCreateWithFieldValues = IMenuItemCreate & FieldValues;
+export type IMenuItemMutation = z.infer<typeof createMenuItemRequestSchema>;
+
+export type IMenuItemUpdate = Partial<IMenuItemCreate>;
+export type IMenuItemUpdateMutation = {
+  newData: IMenuItemUpdate;
+  itemId: string;
+};

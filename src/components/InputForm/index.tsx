@@ -31,6 +31,7 @@ export const InputForm = <T extends FieldValues>({
   maxLength,
   pattern,
   value,
+
   ...rest
 }: IFormInputProps<T>) => {
   return (
@@ -39,7 +40,7 @@ export const InputForm = <T extends FieldValues>({
       <Input
         placeholder={placeHolder}
         type={type}
-        value={value}
+        defaultValue={value}
         {...register(name)}
         bg="title-color"
         borderRadius={"20px"}
