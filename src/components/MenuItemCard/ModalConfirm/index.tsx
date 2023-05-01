@@ -4,7 +4,7 @@ import {
   FormLabel,
   Heading,
   Image,
-  Input,
+
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -76,7 +76,12 @@ export const ModalConfirm = ({ isOpen, onClose, item }: IModalConfirm) => {
         <ModalCloseButton />
         <ModalBody>
           <Flex gap="1rem">
-            <Image w="30%" src={item.imageURL} borderRadius={"10"} />
+            <Image
+              w="30%"
+              src={item.imageURL}
+              borderRadius={"10"}
+              objectFit={"cover"}
+            />
             <Flex flexDir={"column"} align={"center"} w="100%" gap="1.5rem">
               <Heading textAlign={"center"} color="black">
                 {item.name}

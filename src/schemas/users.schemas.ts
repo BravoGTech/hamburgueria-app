@@ -1,6 +1,9 @@
 import { z } from "zod";
-import { createAddressSchema, deliveryAddressSchema } from "./addresses.schemas";
-
+import {
+  createAddressSchema,
+  deliveryAddressSchema,
+} from "./addresses.schemas";
+import { returnOrderDataSchema } from "./orders.schemas";
 
 export const userSchema = z.object({
   id: z.string(),
@@ -17,9 +20,13 @@ export const createUserSchema = z.object({
 });
 
 export const createFullUserSchema = createUserSchema.extend({
- addresses: z.array(createAddressSchema)
-})
+  addresses: z.array(createAddressSchema),
+});
 
 export const ResponseCreateUserSchema = userSchema.extend({
-  addresses: z.array(deliveryAddressSchema)
-})
+  addresses: z.array(deliveryAddressSchema),
+});
+
+export const listUserDetailsSchema = ResponseCreateUserSchema.extend({
+  orders: z.array(returnOrderDataSchema),
+});

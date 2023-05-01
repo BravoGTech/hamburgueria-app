@@ -7,6 +7,7 @@ import {
 } from "../interfaces/orders.interfaces";
 import { api } from "../services/api";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 export const OrderContext = createContext<IOrderContextData>(
   {} as IOrderContextData
@@ -29,6 +30,10 @@ export const OrderProvider = ({ children }: IProvider) => {
       newOrder,
       incrementOrderNumber,
     }: ICreateOrderWithFunction): Promise<IReturnCreateOrder> => {
+      const token = localStorage.getItem("@DownTown:Token");
+
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
       return await api.post(`/orders`, newOrder).then((response) => {
         incrementOrderNumber();
         return response.data;
@@ -37,6 +42,8 @@ export const OrderProvider = ({ children }: IProvider) => {
     {
       onSuccess: (response) => {
         console.log(response);
+        toast.success("Pedido Efetuado com sucesso");
+        localStorage.setItem("cart", "[]");
 
         return response;
       },

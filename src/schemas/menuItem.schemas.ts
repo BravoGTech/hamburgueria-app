@@ -40,6 +40,6 @@ export const updateMenuItemSchema = z
     imageURL: z.string().optional(),
     price: z.string().optional(),
     description: z.string().optional(),
-    categoryId: z.string().nonempty(),
+    categoryId: z.string().nonempty({ message: "Escolha uma categoria" }),
   })
   .partial();

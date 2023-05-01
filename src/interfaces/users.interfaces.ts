@@ -3,6 +3,7 @@ import {
   ResponseCreateUserSchema,
   createFullUserSchema,
   createUserSchema,
+  listUserDetailsSchema,
 } from "../schemas/users.schemas";
 import { UseMutateFunction } from "@tanstack/react-query";
 
@@ -13,6 +14,8 @@ export interface IUserContextData {
     ICreateUserMutation,
     unknown
   >;
+  listUserDetail: UseMutateFunction<IListUserDetails, any, string, unknown>;
+  userDetails: IListUserDetails;
 }
 
 export type ICreateUser = z.infer<typeof createUserSchema>;
@@ -24,3 +27,5 @@ export interface ICreateUserMutation {
 }
 
 export type IResponseCreateUser = z.infer<typeof ResponseCreateUserSchema>;
+
+export type IListUserDetails = z.infer<typeof listUserDetailsSchema>;

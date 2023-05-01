@@ -110,8 +110,11 @@ export const NavLinks = ({ isOpen, onToggle }: NavLinksProps) => {
               </>
             ) : token && !auth ? (
               <>
+                <MenuItemOption>Minha Conta</MenuItemOption>
+                <MenuItemOption>Meus Pedidos</MenuItemOption>
                 <MenuItemOption>Atualizar Endereço</MenuItemOption>
                 <MenuItemOption>Atualizar Informações</MenuItemOption>
+                <MenuItemOption onClick={handleLogout}>Logout</MenuItemOption>
               </>
             ) : (
               <>

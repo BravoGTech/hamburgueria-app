@@ -6,3 +6,7 @@ export const orderItemSchema = z.object({
   instructions: z.string(),
   menuItemId: z.string(),
 });
+
+export const orderItemDataSchema = orderItemSchema.extend({
+  id: z.string(),
+});

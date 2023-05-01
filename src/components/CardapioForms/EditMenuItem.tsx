@@ -1,5 +1,6 @@
 import {
   Button,
+  Divider,
   Flex,
   FormControl,
   FormErrorMessage,
@@ -12,15 +13,8 @@ import {
 import { InputForm } from "../InputForm";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  createMenuItemSchema,
-  updateMenuItemSchema,
-} from "../../schemas/menuItem.schemas";
-import {
-  IMenuItemCreate,
-  IMenuItemMutation,
-  IMenuItemUpdate,
-} from "../../interfaces/menuItem.interfaces";
+import { updateMenuItemSchema } from "../../schemas/menuItem.schemas";
+import { IMenuItemUpdate } from "../../interfaces/menuItem.interfaces";
 import { useContext, useEffect, useState } from "react";
 import { CategoriesContext } from "../../contexts/CategoriesContext";
 import { MenuItemContext } from "../../contexts/MenuItemContext";
@@ -87,6 +81,9 @@ export const EditMenuItem = () => {
         bg="title-color"
         borderRadius={"20px"}
         onChange={(e) => setItemId(e.target.value)}
+        maxW={"400px"}
+        margin={"0 auto"}
+        pt="20px"
       >
         <option value="">Selecione o produto</option>
         {menuItens.map((item) => (
@@ -105,6 +102,7 @@ export const EditMenuItem = () => {
           gap="1rem"
           onSubmit={handleSubmit(onSubmit)}
         >
+          <Divider />
           <InputForm
             name={"name"}
             placeHolder="Digite o nome do produto"
@@ -133,7 +131,6 @@ export const EditMenuItem = () => {
               borderRadius={"20px"}
               placeholder="Digite o preço do produto"
               {...register("price")}
-              // onChange={(e) => format(e.target.value)}
               defaultValue={menuItemDeatilData?.price?.toLocaleString("pt-br", {
                 style: "currency",
                 currency: "BRL",
@@ -177,7 +174,7 @@ export const EditMenuItem = () => {
             </Select>
           </FormControl>
           <Button bg="logo-color" border={"20px"} type="submit">
-            Adicionar
+            Atualizar
           </Button>
         </Flex>
       )}

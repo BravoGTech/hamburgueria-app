@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { BsCartPlusFill } from "react-icons/bs";
 import { ModalConfirm } from "./ModalConfirm";
+import { FaCaretDown, FaCaretRight } from "react-icons/fa";
 
 interface IMenuItemCardProps {
   item: IMenuItemInterfaceData;
@@ -27,13 +28,20 @@ export const MenuItensCard = ({ item }: IMenuItemCardProps) => {
   return (
     <>
       <Grid
-        templateColumns="auto 1fr auto auto"
+        templateColumns="auto auto 1fr auto"
         gap={4}
         p="1rem 0"
         color="logo-color"
         onClick={handleClick}
         cursor="pointer"
+        justifyItems="center"
+        alignItems="center"
       >
+        <GridItem>
+          <Text as="b">
+            {show ? <FaCaretDown size="26px" /> : <FaCaretRight size="26px" />}
+          </Text>
+        </GridItem>
         <GridItem>
           <Text>{item.name}</Text>
         </GridItem>
@@ -47,9 +55,6 @@ export const MenuItensCard = ({ item }: IMenuItemCardProps) => {
         />
         <GridItem>
           <Text as="b">{`R$${item.price.toFixed(2)}`}</Text>
-        </GridItem>
-        <GridItem>
-          <Text as="b">{show ? "/" : ">"}</Text>
         </GridItem>
       </Grid>
       {show && (

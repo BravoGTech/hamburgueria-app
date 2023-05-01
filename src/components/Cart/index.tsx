@@ -1,17 +1,39 @@
-import { Button, Flex, Heading } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  HStack,
+  Heading,
+  Radio,
+  RadioGroup,
+  Select,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import { IMenuItemData } from "../MenuItemCard/ModalConfirm";
 import { CartCard } from "./CartCard";
 import React, { useContext, useEffect, useState } from "react";
 import { OrderContext } from "../../contexts/OrdersContext";
 import { ICreateOrder } from "../../interfaces/orders.interfaces";
+import jwt_decode from "jwt-decode";
+import { UsersContext } from "../../contexts/UsersContext";
 
 export const Cart = () => {
   const { createOrder } = useContext(OrderContext);
+  const { listUserDetail, userDetails } = useContext(UsersContext);
 
   const [totalValue, setTotalValue] = useState(0);
   const [cart, setCart] = useState<IMenuItemData[]>([]);
   const [orderNumber, setOrderNumber] = useState(1);
+  const [selectedAddress, setSelectedAddress] = useState(
+    userDetails?.addresses?.find((address) => address.preferred)?.id
+  );
+  const [userId, setUserId] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("");
 
+  // Load cart and user data from local storage and server
   useEffect(() => {
     const storedCart: IMenuItemData[] = JSON.parse(
       localStorage.getItem("cart") || "[]"
@@ -30,6 +52,13 @@ export const Cart = () => {
     } else {
       setOrderNumber(storedOrderNumber ? parseInt(storedOrderNumber) : 1);
     }
+
+    const token = localStorage.getItem("@DownTown:Token") || "";
+
+    const tokenDecoded = jwt_decode<any>(token);
+
+    listUserDetail(tokenDecoded.id);
+    setUserId(tokenDecoded.id);
   }, []);
 
   const incrementOrderNumber = () => {
@@ -59,18 +88,64 @@ export const Cart = () => {
       return cartItem.MenuItemCart;
     });
 
+    if (!selectedAddress) {
+      setSelectedAddress(
+        userDetails?.addresses?.find((address) => address.preferred)?.id
+      );
+    }
+
     const newOrder: ICreateOrder = {
       orderNumber: orderNumber,
-      deliveryAddress: "1909c4a9-2e80-40a8-bd5d-b502eea8459d",
-      paymentMethod: "Cartão de Crédito",
-      userId: "f2b1d0ed-fac7-4684-9858-ea2799dae76b",
+      deliveryAddressId: selectedAddress!,
+      paymentMethod: paymentMethod,
+      userId: userId!,
       orderItems,
     };
-
+    // console.log(newOrder);
     createOrder({ newOrder, incrementOrderNumber });
   };
+
+  const handleChange = (value: string) => {
+    setPaymentMethod(value);
+  };
+
   return (
     <>
+      <Flex
+        flexDir={{ base: "column", md: "row" }}
+        gap="1rem"
+        align={"center"}
+        justify={"center"}
+        maxW={"auto"}
+        margin="0 auto"
+      >
+        <Text
+          fontSize={"20px"}
+          textAlign={"center"}
+          w="80%"
+          color="primary-color"
+        >
+          Endereço de entrega:
+        </Text>
+        <Select
+          bg="primary-color"
+          value={
+            selectedAddress ||
+            userDetails?.addresses?.find((address) => address.preferred)?.id ||
+            ""
+          }
+          onChange={(event) => setSelectedAddress(event.target.value)}
+        >
+          <option>Selecione o Endereço</option>
+          {userDetails?.addresses?.map((address) => {
+            return (
+              <option value={address?.id} key={address?.id}>
+                {address?.street} - {address?.city}, {address.state}
+              </option>
+            );
+          })}
+        </Select>
+      </Flex>
       <Flex flexDir={"column"} gap="1rem">
         {cart.map((item, index) => {
           return (
@@ -83,6 +158,29 @@ export const Cart = () => {
             </React.Fragment>
           );
         })}
+      </Flex>
+      <Flex
+        align={"center"}
+        justify={"center"}
+        w={{ base: "100%", md: "50%" }}
+        margin="0 auto"
+      >
+        <FormControl as="fieldset">
+          <FormLabel color="primary-color" as="legend">
+            Selecione o método de pagamento:
+          </FormLabel>
+
+          <Select
+            bg="primary-color"
+            onChange={(e) => handleChange(e.target.value)}
+          >
+            <option value="">Selecione o método de pagamento</option>
+            <option value="Cartão de Crédito">Cartão de Crédito</option>
+            <option value="Cartão de Débito">Cartão de Débito</option>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="PIX">PIX</option>
+          </Select>
+        </FormControl>
       </Flex>
       <Flex
         justify={"center"}
