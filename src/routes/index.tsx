@@ -5,6 +5,7 @@ import { HomePage } from "../pages/HomePage";
 import { LoginPage } from "../pages/LoginPage";
 import { RegisterPager } from "../pages/RegisterPage";
 import { AdminPage } from "../pages/AdminPage";
+import { OrdersPage } from "../pages/OrdersPage";
 
 export const Routers = () => {
   return (
@@ -15,6 +16,7 @@ export const Routers = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPager />} />
       <Route path="/admin" element={<AdminPage />} />
+      <Route path="/orders" element={<OrdersPage />} />
     </Routes>
   );
 };

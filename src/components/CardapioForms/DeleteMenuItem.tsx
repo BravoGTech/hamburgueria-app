@@ -3,16 +3,16 @@ import { useContext, useState } from "react";
 import { MenuItemContext } from "../../contexts/MenuItemContext";
 
 export const DeleteMenuItem = () => {
-  const { data: menuItens } = useContext(MenuItemContext);
+  const { data: menuItens, deleteMenuItem } = useContext(MenuItemContext);
 
   const [itemId, setItemId] = useState("");
 
   const handleDelete = () => {
-    console.log(itemId);
+    deleteMenuItem(itemId);
   };
 
   return (
-    <Flex flexDir={"column"} gap="1rem" p='2rem 0'>
+    <Flex flexDir={"column"} gap="1rem" p="2rem 0">
       <Select
         bg="title-color"
         borderRadius={"20px"}

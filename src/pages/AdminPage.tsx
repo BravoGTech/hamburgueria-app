@@ -3,10 +3,12 @@ import { useState } from "react";
 import { CreateMenuItem } from "../components/CardapioForms/CreateMenuItem";
 import { EditMenuItem } from "../components/CardapioForms/EditMenuItem";
 import { DeleteMenuItem } from "../components/CardapioForms/DeleteMenuItem";
+import { useNavigate } from "react-router-dom";
 
 export const AdminPage = () => {
   const [showSubMenu, setShowSubMenu] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState<number | null>(null);
+  const navigate = useNavigate();
   const handleSubMenu = () => {
     setShowSubMenu(!showSubMenu);
   };
@@ -26,7 +28,12 @@ export const AdminPage = () => {
         >
           Atualizar Cardápio
         </Heading>
-        <Heading fontFamily={"Montserrat"} fontSize={"26px"}>
+        <Heading
+          onClick={() => navigate("/orders")}
+          cursor={"pointer"}
+          fontFamily={"Montserrat"}
+          fontSize={"26px"}
+        >
           Pedidos
         </Heading>
       </Flex>

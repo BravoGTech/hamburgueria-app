@@ -3,6 +3,7 @@ import { IProvider } from "../interfaces";
 import {
   ICreateOrderWithFunction,
   IOrderContextData,
+  IOrdersData,
   IReturnCreateOrder,
 } from "../interfaces/orders.interfaces";
 import { api } from "../services/api";
@@ -15,15 +16,18 @@ export const OrderContext = createContext<IOrderContextData>(
 
 export const OrderProvider = ({ children }: IProvider) => {
   const [ordersQuantity, setOrdersQuantity] = useState(0);
-  // const listOrders = async () => {
-  //   const response = await api.get("/orders");
-  //   return response.data;
-  // };
+  const listOrders = async (): Promise<IOrdersData> => {
+    const token = localStorage.getItem("@DownTown:Token");
 
-  // const { data, isFetching, isError, refetch } = useQuery({
-  //   queryKey: ["orders"],
-  //   queryFn: listOrders,
-  // });
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    const response = await api.get("/orders");
+    return response.data;
+  };
+
+  const { data, isFetching, isError, refetch } = useQuery({
+    queryKey: ["orders"],
+    queryFn: listOrders,
+  });
 
   const { mutate: createOrder } = useMutation(
     async ({
@@ -44,7 +48,8 @@ export const OrderProvider = ({ children }: IProvider) => {
         console.log(response);
         toast.success("Pedido Efetuado com sucesso");
         localStorage.setItem("cart", "[]");
-
+        refetch();
+        
         return response;
       },
       onError: (error: any) => {
@@ -54,7 +59,7 @@ export const OrderProvider = ({ children }: IProvider) => {
   );
   return (
     <OrderContext.Provider
-      value={{ createOrder, setOrdersQuantity, ordersQuantity }}
+      value={{ createOrder, setOrdersQuantity, ordersQuantity, data }}
     >
       {children}
     </OrderContext.Provider>

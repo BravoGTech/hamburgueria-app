@@ -43,3 +43,8 @@ export const updateMenuItemSchema = z
     categoryId: z.string().nonempty({ message: "Escolha uma categoria" }),
   })
   .partial();
+
+export const menuItemForOrder = z.object({
+  id: z.string(),
+  name: z.string(),
+});

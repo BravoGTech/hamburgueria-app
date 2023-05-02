@@ -109,9 +109,11 @@ export const MenuItemProvider = ({ children }: IProvider) => {
     },
     {
       onSuccess: (response) => {
-        console.log(response);
         toast.success("Item Deletado");
         refetch();
+      },
+      onError: (error: AxiosError) => {
+        toast.error("Item está sendo usado em um pedido");
       },
     }
   );
