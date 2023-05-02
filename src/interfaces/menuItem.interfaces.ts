@@ -37,6 +37,8 @@ export interface IMenuItemContext {
     IMenuItemUpdateMutation,
     unknown
   >;
+
+  deleteMenuItem: UseMutateFunction<any, unknown, string, unknown>;
 }
 
 export type IMenuItemInterfaceData = z.infer<typeof baseMenuItemSchema>;

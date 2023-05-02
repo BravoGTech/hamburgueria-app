@@ -11,7 +11,6 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { api } from "../services/api";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
-import { IMenuItemUpdate } from "../interfaces/menuItem.interfaces";
 
 export const MenuItemContext = createContext<IMenuItemContext>(
   {} as IMenuItemContext
@@ -98,15 +97,35 @@ export const MenuItemProvider = ({ children }: IProvider) => {
     }
   );
 
+  const { mutate: deleteMenuItem } = useMutation(
+    async (itemId: string) => {
+      const token = localStorage.getItem("@DownTown:Token");
+
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+      return await api.delete(`/menuItem/${itemId}`).then((response) => {
+        return response.data;
+      });
+    },
+    {
+      onSuccess: (response) => {
+        console.log(response);
+        toast.success("Item Deletado");
+        refetch();
+      },
+    }
+  );
+
   return (
     <MenuItemContext.Provider
       value={{
         data,
         isFetching,
+        menuItemDeatilData,
         createMenuItem,
         listItemDetail,
-        menuItemDeatilData,
         updateMenuItem,
+        deleteMenuItem,
       }}
     >
       {children}
