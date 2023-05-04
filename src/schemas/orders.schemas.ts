@@ -16,7 +16,6 @@ export const BaseOrderSchema = z.object({
   orderConfirm: z.boolean(),
   finishedOrder: z.boolean(),
   orderItems: z.array(orderItemSchema),
-  // user: userSchema,
   deliveryAddress: deliveryAddressSchema,
 });
 

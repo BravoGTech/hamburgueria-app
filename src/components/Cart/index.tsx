@@ -31,7 +31,8 @@ export const Cart = () => {
     userDetails?.addresses?.find((address) => address.preferred)?.id
   );
   const [userId, setUserId] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("");
+            <option value="default">Selecione o método de pagamento</option>
+  const [paymentMethod, setPaymentMethod] = useState("default");
 
   // Load cart and user data from local storage and server
   useEffect(() => {
@@ -174,7 +175,7 @@ export const Cart = () => {
             bg="primary-color"
             onChange={(e) => handleChange(e.target.value)}
           >
-            <option value="">Selecione o método de pagamento</option>
+            <option value="default">Selecione o método de pagamento</option>
             <option value="Cartão de Crédito">Cartão de Crédito</option>
             <option value="Cartão de Débito">Cartão de Débito</option>
             <option value="Dinheiro">Dinheiro</option>
@@ -197,7 +198,7 @@ export const Cart = () => {
             currency: "BRL",
           })}
         </Heading>
-        <Button onClick={handleFinishCheckout} colorScheme="green">
+        <Button isDisabled={paymentMethod === "default" ? true : false} onClick={handleFinishCheckout} colorScheme="green">
           Finalizar Compra
         </Button>
       </Flex>

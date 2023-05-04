@@ -4,11 +4,14 @@ import {
   ICreateOrderWithFunction,
   IOrderContextData,
   IOrdersData,
+  IResponseStatusOrder,
   IReturnCreateOrder,
+  IStatusOrder,
 } from "../interfaces/orders.interfaces";
 import { api } from "../services/api";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { AxiosError } from "axios";
 
 export const OrderContext = createContext<IOrderContextData>(
   {} as IOrderContextData
@@ -49,7 +52,7 @@ export const OrderProvider = ({ children }: IProvider) => {
         toast.success("Pedido Efetuado com sucesso");
         localStorage.setItem("cart", "[]");
         refetch();
-        
+
         return response;
       },
       onError: (error: any) => {
@@ -57,9 +60,34 @@ export const OrderProvider = ({ children }: IProvider) => {
       },
     }
   );
+
+  const { mutate: statusOrder } = useMutation(
+    async ({ data }: IStatusOrder): Promise<IResponseStatusOrder> => {
+      const token = localStorage.getItem("@DownTown:Token");
+
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      return await api
+        .patch("/orders/statusOrder", data)
+        .then((response) => response.data);
+    },
+    {
+      onSuccess: (response) => {
+        refetch();
+      },
+      onError: (error: AxiosError) => {
+        console.log(error);
+      },
+    }
+  );
   return (
     <OrderContext.Provider
-      value={{ createOrder, setOrdersQuantity, ordersQuantity, data }}
+      value={{
+        createOrder,
+        setOrdersQuantity,
+        ordersQuantity,
+        data,
+        statusOrder,
+      }}
     >
       {children}
     </OrderContext.Provider>

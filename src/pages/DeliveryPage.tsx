@@ -1,3 +1,5 @@
+import { Fragment, useContext, useEffect, useState } from "react";
+import { OrderContext } from "../contexts/OrdersContext";
 import { Container, Image } from "@chakra-ui/react";
 import {
   Box,
@@ -10,12 +12,10 @@ import {
   Tr,
   VStack,
 } from "@chakra-ui/react";
-import { Fragment, useContext, useEffect, useState } from "react";
-import { OrderContext } from "../contexts/OrdersContext";
 import { IOrdersData } from "../interfaces/orders.interfaces";
 
-export const OrdersPage = () => {
-  const { data, statusOrder } = useContext(OrderContext);
+export const DeliveryPage = () => {
+  const { data } = useContext(OrderContext);
 
   const [orders, setOrders] = useState<IOrdersData>();
 
@@ -30,22 +30,6 @@ export const OrdersPage = () => {
     const hours = dateObj.getHours().toString().padStart(2, "0");
     const minutes = dateObj.getMinutes().toString().padStart(2, "0");
     return `${hours}:${minutes}`;
-  };
-
-  const handleButtons = (type: string, orderId: string) => {
-    if (type === "confirm") {
-      const data = {
-        orderId,
-        orderConfirm: true,
-      };
-      statusOrder({ data });
-    } else {
-      const data = {
-        orderId,
-        finishedOrder: true,
-      };
-      statusOrder({ data });
-    }
   };
 
   return (
@@ -72,7 +56,7 @@ export const OrdersPage = () => {
                     Última Atualização
                   </Th>
                   <Th textAlign={"center"} fontFamily={"Montserrat"}>
-                    Pedido
+                    Endereço de Entrega
                   </Th>
                   <Th textAlign={"center"} fontFamily={"Montserrat"}>
                     Ações
@@ -82,7 +66,7 @@ export const OrdersPage = () => {
               <Tbody>
                 {orders?.map((order) => (
                   <Fragment key={order.id}>
-                    {!order.finishedOrder && (
+                    {order.finishedOrder && (
                       <Tr>
                         <Td textAlign={"center"}>{order.orderNumber}</Td>
                         <Td textAlign={"center"}>
@@ -92,31 +76,17 @@ export const OrdersPage = () => {
                           {formatDate(order.updatedAt)}
                         </Td>
                         <Td textAlign={"center"}>
-                          {order.orderItems.map(
-                            (item) =>
-                              `${item.quantity}x ${item.menuItem.name}. ${item.instructions}`
-                          )}
+                          {order.deliveryAddress.street},{" "}
+                          {order.deliveryAddress.complement},{" "}
                         </Td>
                         <Td textAlign={"center"}>
-                          {order.orderConfirm ? (
-                            <Button
-                              onClick={() => handleButtons("finish", order.id)}
-                              colorScheme="teal"
-                              variant="outline"
-                              size="sm"
-                            >
-                              Finalizar Pedido
-                            </Button>
-                          ) : (
-                            <Button
-                              onClick={() => handleButtons("confirm", order.id)}
-                              colorScheme="teal"
-                              variant="outline"
-                              size="sm"
-                            >
-                              Confirmar Pedido
-                            </Button>
-                          )}
+                          <Button
+                            colorScheme="teal"
+                            variant="outline"
+                            size="sm"
+                          >
+                            Entrega
+                          </Button>
                         </Td>
                       </Tr>
                     )}

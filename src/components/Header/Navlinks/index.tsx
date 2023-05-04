@@ -50,6 +50,11 @@ export const NavLinks = ({ isOpen, onToggle }: NavLinksProps) => {
     setActiveLink(path);
   };
 
+  const handleMenu = () => {
+    setActiveLink("");
+    setActiveLink("admin");
+  };
+
   const handleLogout = () => {
     localStorage.removeItem("cart");
     localStorage.removeItem("@DownTown:Token");
@@ -89,12 +94,24 @@ export const NavLinks = ({ isOpen, onToggle }: NavLinksProps) => {
         >
           Cardápio
         </MenuItem>
+        <MenuItem
+          onToggle={onToggle}
+          isOpen={isOpen}
+          to=""
+          activeLink={activeLink}
+          handleClick={handleClick}
+        >
+          Contatos
+        </MenuItem>
 
         <Menu>
           <MenuButton
             fontFamily={"Montserrat"}
-            color={"primary-color"}
             fontSize={"20px"}
+            _hover={{ textDecor: "none", color: "logo-color" }}
+            fontWeight={activeLink === "admin" ? "bold" : "400"}
+            color={activeLink === "admin" ? "logo-color" : "primary-color"}
+            onClick={handleMenu}
           >
             Minha Conta
           </MenuButton>

@@ -36,6 +36,14 @@ export const AdminPage = () => {
         >
           Pedidos
         </Heading>
+        <Heading
+          onClick={() => navigate("/delivery")}
+          cursor={"pointer"}
+          fontFamily={"Montserrat"}
+          fontSize={"26px"}
+        >
+          Entregas
+        </Heading>
       </Flex>
       {showSubMenu && (
         <Flex justify={"center"} align={"center"} gap="5rem" mt="3rem">
