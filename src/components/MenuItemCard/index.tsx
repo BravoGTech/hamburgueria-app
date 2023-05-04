@@ -63,8 +63,10 @@ export const MenuItensCard = ({ item }: IMenuItemCardProps) => {
           borderRadius={"10px"}
           // p="1rem"
           justify={"space-around"}
+          align={{ base: "center" }}
           gap="1rem"
           w="94%"
+          flexDir={{ base: "column", md: "row" }}
         >
           <Image
             src={item.imageURL}
@@ -73,7 +75,7 @@ export const MenuItensCard = ({ item }: IMenuItemCardProps) => {
             borderRadius={"20px"}
             p="1rem"
           />
-          <Flex flexDir={"column"} w="100%" gap="0.5rem" p="1rem 0">
+          <Flex flexDir={"column"} w="100%" gap="0.5rem" p="1rem">
             <Heading
               fontWeight={"400"}
               lineHeight={"37.5px"}
@@ -99,8 +101,9 @@ export const MenuItensCard = ({ item }: IMenuItemCardProps) => {
           </Flex>
           <Flex
             bg="#5f4848"
-            w="15%"
-            borderTopRightRadius={"10"}
+            p={{ base: "0.5rem", md: "0" }}
+            w={{ base: "100%", md: "15%" }}
+            borderTopRightRadius={{ base: "0", md: "10" }}
             borderBottomRightRadius={"10"}
             cursor={"pointer"}
             align={"center"}
