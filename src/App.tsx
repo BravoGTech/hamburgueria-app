@@ -13,7 +13,7 @@ function App() {
       if (document.documentElement.scrollHeight > window.innerHeight) {
         setBodyHeight("100%");
       } else {
-        setBodyHeight("100vh");
+        // setBodyHeight("100vh");
       }
     };
 

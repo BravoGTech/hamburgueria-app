@@ -20,7 +20,7 @@ export const theme = extendTheme({
         backgroundImage: BG,
         backgroundPosition: "center",
         backgroundSize: "cover",
-        height: "100vh",
+        // height: "100vh",
       },
     },
   },

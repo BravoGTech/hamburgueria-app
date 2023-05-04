@@ -29,7 +29,7 @@ export const HomePage = () => {
           <Heading fontSize={"32px"} letterSpacing={"5%"} color="#DBBE9E">
             Bem vindos à
           </Heading>
-          <Heading fontSize={"65px"} letterSpacing={"5px"}>
+          <Heading fontSize={"55px"} letterSpacing={"5px"}>
             DownTown
           </Heading>
           <Heading fontSize={"32px"} color="second-color">
@@ -41,7 +41,7 @@ export const HomePage = () => {
           <Button
             fontFamily={"Inter"}
             borderRadius={"50px"}
-            w="330px"
+            maxWidth={'330px'}
             bg="#E4D8C4"
             p="24px"
             fontSize={"18px"}
@@ -51,7 +51,7 @@ export const HomePage = () => {
             Acessar Cardápio
           </Button>
         </Flex>
-        <Image src={burger} pl="5rem" />
+        <Image w='70%' src={burger} pl="5rem" display={{ base: "none", lg: "block" }} />
       </Container>
 
       <Flex bg="#E1D4C0" mt="2rem" p="2rem 0">
