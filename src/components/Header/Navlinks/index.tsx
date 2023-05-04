@@ -121,8 +121,12 @@ export const NavLinks = ({ isOpen, onToggle }: NavLinksProps) => {
                 <MenuItemOption onClick={() => navigate("/admin")}>
                   Minha Conta
                 </MenuItemOption>
-                <MenuItemOption>Atualizar Cardápio</MenuItemOption>
-                <MenuItemOption>Pedidos</MenuItemOption>
+                <MenuItemOption onClick={() => navigate("/orders")}>
+                  Pedidos
+                </MenuItemOption>
+                <MenuItemOption onClick={() => navigate("/delivery")}>
+                  Entregas
+                </MenuItemOption>
                 <MenuItemOption onClick={handleLogout}>Logout</MenuItemOption>
               </>
             ) : token && !auth ? (

@@ -1,4 +1,4 @@
-import { Container, Image } from "@chakra-ui/react";
+import { Container, Image, Spinner } from "@chakra-ui/react";
 import {
   Box,
   Button,
@@ -14,9 +14,11 @@ import { Fragment, useContext, useEffect, useState } from "react";
 import { OrderContext } from "../contexts/OrdersContext";
 import { IOrdersData } from "../interfaces/orders.interfaces";
 import { useNavigate } from "react-router-dom";
+import useAdminAuth from "../components/useAdminAuth";
 
 export const OrdersPage = () => {
-  const { data, statusOrder } = useContext(OrderContext);
+  useAdminAuth()
+  const { data, statusOrder, isFetching } = useContext(OrderContext);
 
   const [orders, setOrders] = useState<IOrdersData>();
   const navigate = useNavigate();
@@ -85,48 +87,56 @@ export const OrdersPage = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {orders?.map((order) => (
-                  <Fragment key={order.id}>
-                    {!order.finishedOrder && (
-                      <Tr>
-                        <Td textAlign={"center"}>{order.orderNumber}</Td>
-                        <Td textAlign={"center"}>
-                          {formatDate(order.createdAt)}
-                        </Td>
-                        <Td textAlign={"center"}>
-                          {formatDate(order.updatedAt)}
-                        </Td>
-                        <Td textAlign={"center"}>
-                          {order.orderItems.map(
-                            (item) =>
-                              `${item.quantity}x ${item.menuItem.name}. ${item.instructions}`
-                          )}
-                        </Td>
-                        <Td textAlign={"center"}>
-                          {order.orderConfirm ? (
-                            <Button
-                              onClick={() => handleButtons("finish", order.id)}
-                              colorScheme="teal"
-                              variant="outline"
-                              size="sm"
-                            >
-                              Finalizar Pedido
-                            </Button>
-                          ) : (
-                            <Button
-                              onClick={() => handleButtons("confirm", order.id)}
-                              colorScheme="teal"
-                              variant="outline"
-                              size="sm"
-                            >
-                              Confirmar Pedido
-                            </Button>
-                          )}
-                        </Td>
-                      </Tr>
-                    )}
-                  </Fragment>
-                ))}
+                {isFetching ? (
+                  <Spinner />
+                ) : (
+                  orders?.map((order) => (
+                    <Fragment key={order.id}>
+                      {!order.finishedOrder && (
+                        <Tr>
+                          <Td textAlign={"center"}>{order.orderNumber}</Td>
+                          <Td textAlign={"center"}>
+                            {formatDate(order.createdAt)}
+                          </Td>
+                          <Td textAlign={"center"}>
+                            {formatDate(order.updatedAt)}
+                          </Td>
+                          <Td textAlign={"center"}>
+                            {order.orderItems.map(
+                              (item) =>
+                                `${item.quantity}x ${item.menuItem.name}. ${item.instructions}`
+                            )}
+                          </Td>
+                          <Td textAlign={"center"}>
+                            {order.orderConfirm ? (
+                              <Button
+                                onClick={() =>
+                                  handleButtons("finish", order.id)
+                                }
+                                colorScheme="teal"
+                                variant="outline"
+                                size="sm"
+                              >
+                                Finalizar Pedido
+                              </Button>
+                            ) : (
+                              <Button
+                                onClick={() =>
+                                  handleButtons("confirm", order.id)
+                                }
+                                colorScheme="teal"
+                                variant="outline"
+                                size="sm"
+                              >
+                                Confirmar Pedido
+                              </Button>
+                            )}
+                          </Td>
+                        </Tr>
+                      )}
+                    </Fragment>
+                  ))
+                )}
               </Tbody>
             </Table>
           )}

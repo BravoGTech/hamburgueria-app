@@ -20,6 +20,9 @@ export const UsersProvider = ({ children }: IProvider) => {
   const [userDetails, setUserDetails] = useState<IListUserDetails>(
     {} as IListUserDetails
   );
+  const [userProfile, setUserProfile] = useState<IListUserDetails>(
+    {} as IListUserDetails
+  );
   const navigate = useNavigate();
   const { mutate: createUser } = useMutation(
     async ({ data }: ICreateUserMutation): Promise<IResponseCreateUser> => {
@@ -43,7 +46,7 @@ export const UsersProvider = ({ children }: IProvider) => {
       const token = localStorage.getItem("@DownTown:Token");
 
       api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      
+
       return await api.get(`/users/${id}`).then((response) => {
         return response.data;
       });
@@ -57,8 +60,35 @@ export const UsersProvider = ({ children }: IProvider) => {
       },
     }
   );
+  const { mutate: listUserProfile } = useMutation(
+    async (): Promise<IListUserDetails> => {
+      const token = localStorage.getItem("@DownTown:Token");
+
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+      return await api.get(`/users/profile`).then((response) => {
+        return response.data;
+      });
+    },
+    {
+      onSuccess: (response) => {
+        setUserProfile(response);
+      },
+      onError: (error: AxiosError) => {
+        console.log(error);
+      },
+    }
+  );
   return (
-    <UsersContext.Provider value={{ createUser, listUserDetail, userDetails }}>
+    <UsersContext.Provider
+      value={{
+        createUser,
+        listUserDetail,
+        userDetails,
+        listUserProfile,
+        userProfile,
+      }}
+    >
       {children}
     </UsersContext.Provider>
   );

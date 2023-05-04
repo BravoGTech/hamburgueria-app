@@ -12,6 +12,7 @@ import { api } from "../services/api";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
+import jwt_decode from 'jwt-decode'
 
 export const OrderContext = createContext<IOrderContextData>(
   {} as IOrderContextData
@@ -27,9 +28,14 @@ export const OrderProvider = ({ children }: IProvider) => {
     return response.data;
   };
 
+  const token = localStorage.getItem("@DownTown:Token")
+  
+  const {isAdmin} = jwt_decode<any>(token)
+
   const { data, isFetching, isError, refetch } = useQuery({
     queryKey: ["orders"],
     queryFn: listOrders,
+    enabled: isAdmin && token != null,
   });
 
   const { mutate: createOrder } = useMutation(
@@ -40,7 +46,6 @@ export const OrderProvider = ({ children }: IProvider) => {
       const token = localStorage.getItem("@DownTown:Token");
 
       api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
       return await api.post(`/orders`, newOrder).then((response) => {
         incrementOrderNumber();
         return response.data;
@@ -106,6 +111,7 @@ export const OrderProvider = ({ children }: IProvider) => {
         data,
         statusOrder,
         deleteOrder,
+        isFetching,
       }}
     >
       {children}

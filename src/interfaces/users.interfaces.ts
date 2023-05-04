@@ -15,7 +15,9 @@ export interface IUserContextData {
     unknown
   >;
   listUserDetail: UseMutateFunction<IListUserDetails, any, string, unknown>;
+  listUserProfile: UseMutateFunction<IListUserDetails, any, void, unknown>;
   userDetails: IListUserDetails;
+  userProfile: IListUserDetails;
 }
 
 export type ICreateUser = z.infer<typeof createUserSchema>;

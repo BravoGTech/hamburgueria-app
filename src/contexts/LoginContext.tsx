@@ -24,7 +24,7 @@ export const LoginProvider = ({ children }: IProvider) => {
         if (decoded.isAdmin) {
           navigate("/admin");
         } else {
-          console.log("ir para pagina de usuario");
+          navigate("/user");
         }
       })
       .catch((error) => toast.error("Email ou senha inválidos"));

@@ -7,6 +7,7 @@ import { RegisterPager } from "../pages/RegisterPage";
 import { AdminPage } from "../pages/AdminPage";
 import { OrdersPage } from "../pages/OrdersPage";
 import { DeliveryPage } from "../pages/DeliveryPage";
+import { UserPage } from "../pages/UserPage";
 
 export const Routers = () => {
   return (
@@ -19,6 +20,7 @@ export const Routers = () => {
       <Route path="/admin" element={<AdminPage />} />
       <Route path="/orders" element={<OrdersPage />} />
       <Route path="/delivery" element={<DeliveryPage />} />
+      <Route path="/user" element={<UserPage />} />
     </Routes>
   );
 };

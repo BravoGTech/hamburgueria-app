@@ -14,8 +14,10 @@ import {
 } from "@chakra-ui/react";
 import { IOrdersData } from "../interfaces/orders.interfaces";
 import { useNavigate } from "react-router-dom";
+import useAdminAuth from "../components/useAdminAuth";
 
 export const DeliveryPage = () => {
+  useAdminAuth()
   const { data, deleteOrder } = useContext(OrderContext);
 
   const [orders, setOrders] = useState<IOrdersData>();

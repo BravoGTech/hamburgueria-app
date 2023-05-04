@@ -25,6 +25,7 @@ export interface IOrderContextData {
     unknown
   >;
   deleteOrder: UseMutateFunction<any, unknown, string, unknown>
+  isFetching: boolean
 }
 
 export type ICreateOrder = z.infer<typeof createOrderSchema>;

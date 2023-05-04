@@ -3,12 +3,13 @@ import { useState } from "react";
 import { CreateMenuItem } from "../components/CardapioForms/CreateMenuItem";
 import { EditMenuItem } from "../components/CardapioForms/EditMenuItem";
 import { DeleteMenuItem } from "../components/CardapioForms/DeleteMenuItem";
-import { useNavigate } from "react-router-dom";
+import useAdminAuth from "../components/useAdminAuth";
 
 export const AdminPage = () => {
+  useAdminAuth();
   const [showSubMenu, setShowSubMenu] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState<number | null>(null);
-  const navigate = useNavigate();
+
   const handleSubMenu = () => {
     setShowSubMenu(!showSubMenu);
   };
@@ -16,7 +17,7 @@ export const AdminPage = () => {
     setSelectedMenu((prevState) => (prevState === index ? null : index));
   };
   return (
-    <Container maxW={"8xl"} mt="1rem" pb='2rem'>
+    <Container maxW={"8xl"} mt="1rem" pb="2rem">
       <Heading fontSize={"34px"}>Bem Vindo</Heading>
       <Flex
         justify={{ base: "flex-start", md: "center" }}
@@ -33,22 +34,6 @@ export const AdminPage = () => {
           borderBottom={showSubMenu ? "solid 1px white" : "none"}
         >
           Atualizar Cardápio
-        </Heading>
-        <Heading
-          onClick={() => navigate("/orders")}
-          cursor={"pointer"}
-          fontFamily={"Montserrat"}
-          fontSize={"22px"}
-        >
-          Pedidos
-        </Heading>
-        <Heading
-          onClick={() => navigate("/delivery")}
-          cursor={"pointer"}
-          fontFamily={"Montserrat"}
-          fontSize={"22px"}
-        >
-          Entregas
         </Heading>
       </Flex>
       {showSubMenu && (
