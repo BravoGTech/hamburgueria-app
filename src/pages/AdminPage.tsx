@@ -16,14 +16,20 @@ export const AdminPage = () => {
     setSelectedMenu((prevState) => (prevState === index ? null : index));
   };
   return (
-    <Container maxW={"8xl"} mt="1rem">
-      <Heading fontSize={"40px"}>Bem Vindo</Heading>
-      <Flex justify={"center"} align={"center"} mt="2rem" gap="5rem ">
+    <Container maxW={"8xl"} mt="1rem" pb='2rem'>
+      <Heading fontSize={"34px"}>Bem Vindo</Heading>
+      <Flex
+        justify={{ base: "flex-start", md: "center" }}
+        align={"center"}
+        mt="2rem"
+        overflowX={"auto"}
+        gap={{ base: "3rem" }}
+      >
         <Heading
           onClick={handleSubMenu}
           cursor={"pointer"}
           fontFamily={"Montserrat"}
-          fontSize={"26px"}
+          fontSize={"22px"}
           borderBottom={showSubMenu ? "solid 1px white" : "none"}
         >
           Atualizar Cardápio
@@ -32,7 +38,7 @@ export const AdminPage = () => {
           onClick={() => navigate("/orders")}
           cursor={"pointer"}
           fontFamily={"Montserrat"}
-          fontSize={"26px"}
+          fontSize={"22px"}
         >
           Pedidos
         </Heading>
@@ -40,13 +46,19 @@ export const AdminPage = () => {
           onClick={() => navigate("/delivery")}
           cursor={"pointer"}
           fontFamily={"Montserrat"}
-          fontSize={"26px"}
+          fontSize={"22px"}
         >
           Entregas
         </Heading>
       </Flex>
       {showSubMenu && (
-        <Flex justify={"center"} align={"center"} gap="5rem" mt="3rem">
+        <Flex
+          overflowX={"auto"}
+          justify={{ base: "flex-start", md: "center" }}
+          align={"center"}
+          gap="3rem"
+          mt="3rem"
+        >
           <Text
             color={selectedMenu === 0 ? "white" : "gray"}
             fontSize={"22px"}

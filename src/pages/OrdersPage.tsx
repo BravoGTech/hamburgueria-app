@@ -13,11 +13,13 @@ import {
 import { Fragment, useContext, useEffect, useState } from "react";
 import { OrderContext } from "../contexts/OrdersContext";
 import { IOrdersData } from "../interfaces/orders.interfaces";
+import { useNavigate } from "react-router-dom";
 
 export const OrdersPage = () => {
   const { data, statusOrder } = useContext(OrderContext);
 
   const [orders, setOrders] = useState<IOrdersData>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (data) {
@@ -51,7 +53,10 @@ export const OrdersPage = () => {
   return (
     <Container maxW={"8xl"}>
       <VStack spacing={4} alignItems="stretch">
-        <Box>
+        <Box overflow={"auto"}>
+          <Button onClick={() => navigate("/admin")} m="1rem 0">
+            Voltar
+          </Button>
           {orders?.length === 0 ? (
             <Image
               src="https://cdn.discordapp.com/attachments/682800725855961174/1103086877013188629/Igor_Garcia_Create_a_funny_image_of_a_burger_with_sad_face_wait_19d577bb-3f46-4126-ac35-a190237db01d.png"

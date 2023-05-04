@@ -79,6 +79,24 @@ export const OrderProvider = ({ children }: IProvider) => {
       },
     }
   );
+
+  const { mutate: deleteOrder } = useMutation(
+    async (id: string) => {
+      const token = localStorage.getItem("@DownTown:Token");
+
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+      return await api.delete(`/orders/${id}`).then((response) => {
+        return response.data;
+      });
+    },
+    {
+      onSuccess: (_) => {
+        toast.success("Pedido excluido");
+        refetch();
+      },
+    }
+  );
   return (
     <OrderContext.Provider
       value={{
@@ -87,6 +105,7 @@ export const OrderProvider = ({ children }: IProvider) => {
         ordersQuantity,
         data,
         statusOrder,
+        deleteOrder,
       }}
     >
       {children}
