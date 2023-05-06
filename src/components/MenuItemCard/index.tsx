@@ -101,7 +101,7 @@ export const MenuItensCard = ({ item }: IMenuItemCardProps) => {
           </Flex>
           <Flex
             bg="#5f4848"
-            p={{ base: "0.5rem", md: "0" }}
+            p={{ base: "0.5rem"}}
             w={{ base: "100%", md: "15%" }}
             borderTopRightRadius={{ base: "0", md: "10" }}
             borderBottomRightRadius={"10"}

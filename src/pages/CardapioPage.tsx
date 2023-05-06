@@ -1,13 +1,4 @@
-import {
-  Button,
-  Container,
-  Flex,
-  Grid,
-  GridItem,
-  Heading,
-  Spinner,
-  Text,
-} from "@chakra-ui/react";
+import { Button, Container, Flex, Heading, Spinner } from "@chakra-ui/react";
 import React, { Fragment, useContext, useState } from "react";
 import { MenuItemContext } from "../contexts/MenuItemContext";
 import { MenuItensCard } from "../components/MenuItemCard";
@@ -25,11 +16,11 @@ export const CardapioPage = () => {
   };
 
   return (
-    <Flex flexDir={"column"} w="100%" gap={"2rem"}>
+    <Flex flexDir={"column"} w="100%" gap={"2rem"} mt="2rem">
       <Flex align={"center"} justify={"center"} w="100%">
         <Heading size={{ base: "2xl", md: "3xl", lg: "4xl" }}>Cardápio</Heading>
       </Flex>
-      <Flex justify={"center"} gap={{ base: "1rem", md: "3rem" }}>
+      {/* <Flex justify={"center"} gap={{ base: "1rem", md: "3rem" }}>
         <Button
           bg={selected === "Hamburguers" ? "logo-color" : "#E4D8C4"}
           color={selected === "Hamburguers" ? "black-color" : "gray.800"}
@@ -54,7 +45,7 @@ export const CardapioPage = () => {
         >
           Bebidas
         </Button>
-      </Flex>
+      </Flex> */}
       <Container maxW={"8xl"}>
         <Heading m="3.125rem 0 1.5rem 0">Hamburguers</Heading>
 

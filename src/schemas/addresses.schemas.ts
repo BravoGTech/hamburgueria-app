@@ -7,6 +7,7 @@ export const deliveryAddressSchema = z.object({
   state: z.string(),
   complement: z.string(),
   street: z.string(),
+  userId: z.string(),
   preferred: z.boolean(),
 });
 0;
@@ -23,4 +24,9 @@ export const cepAPIResponseSchema = z.object({
   siafi: z.string().length(4),
 });
 
-export const createAddressSchema = deliveryAddressSchema.omit({ id: true });
+export const createAddressSchema = deliveryAddressSchema.omit({
+  id: true,
+  userId: true,
+});
+
+export const updateAddressSchema = deliveryAddressSchema.partial();

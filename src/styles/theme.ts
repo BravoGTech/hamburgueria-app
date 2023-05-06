@@ -18,9 +18,10 @@ export const theme = extendTheme({
     global: {
       body: {
         backgroundImage: BG,
+        backgroundAttachment: "fixed",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "100% 100%",
         backgroundPosition: "center",
-        backgroundSize: "cover",
-        // height: "100vh",
       },
     },
   },
