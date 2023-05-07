@@ -1,10 +1,18 @@
-import { Box, Divider, Flex, Stack } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Menu,
+  MenuButton,
+  MenuItemOption,
+  MenuList,
+  Stack,
+} from "@chakra-ui/react";
 import { MenuItem } from "./MenuItem";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BsCartFill } from "react-icons/bs";
-import { useState } from "react";
-import Logo from "../../../assets/logo.png";
+import { useEffect, useState } from "react";
 import { IMenuItemData } from "../../MenuItemCard/ModalConfirm";
+import jwt_decode from "jwt-decode";
 
 interface NavLinksProps {
   isOpen: boolean;
@@ -16,13 +24,42 @@ export const NavLinks = ({ isOpen, onToggle }: NavLinksProps) => {
   const navigate = useNavigate();
 
   const [activeLink, setActiveLink] = useState(location.pathname);
+  const [auth, setAuth] = useState(false);
+
+  const token = localStorage.getItem("@DownTown:Token") || "";
 
   const cart: IMenuItemData[] = JSON.parse(
     localStorage.getItem("cart") || "[]"
   );
 
+  useEffect(() => {
+    if (token) {
+      const decodedToken = jwt_decode<any>(token);
+
+      const { isAdmin } = decodedToken;
+
+      if (!isAdmin) {
+        setAuth(false);
+      } else {
+        setAuth(true);
+      }
+    }
+  }, [token]);
+
   const handleClick = (path: string) => {
     setActiveLink(path);
+  };
+
+  const handleMenu = () => {
+    setActiveLink("");
+    setActiveLink("admin");
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("cart");
+    localStorage.removeItem("@DownTown:Token");
+    setAuth(false);
+    navigate("/");
   };
 
   return (
@@ -47,15 +84,7 @@ export const NavLinks = ({ isOpen, onToggle }: NavLinksProps) => {
         >
           Home
         </MenuItem>
-        <MenuItem
-          onToggle={onToggle}
-          isOpen={isOpen}
-          to=""
-          activeLink={activeLink}
-          handleClick={handleClick}
-        >
-          Sobre Nós
-        </MenuItem>
+
         <MenuItem
           onToggle={onToggle}
           isOpen={isOpen}
@@ -72,8 +101,54 @@ export const NavLinks = ({ isOpen, onToggle }: NavLinksProps) => {
           activeLink={activeLink}
           handleClick={handleClick}
         >
-          Minha Conta
+          Contatos
         </MenuItem>
+
+        <Menu>
+          <MenuButton
+            fontFamily={"Montserrat"}
+            fontSize={"20px"}
+            _hover={{ textDecor: "none", color: "logo-color" }}
+            fontWeight={activeLink === "admin" ? "bold" : "400"}
+            color={activeLink === "admin" ? "logo-color" : "primary-color"}
+            onClick={handleMenu}
+          >
+            Minha Conta
+          </MenuButton>
+          <MenuList>
+            {token && auth ? (
+              <>
+                <MenuItemOption onClick={() => navigate("/admin")}>
+                  Minha Conta
+                </MenuItemOption>
+                <MenuItemOption onClick={() => navigate("/orders")}>
+                  Pedidos
+                </MenuItemOption>
+                <MenuItemOption onClick={() => navigate("/delivery")}>
+                  Entregas
+                </MenuItemOption>
+                <MenuItemOption onClick={handleLogout}>Logout</MenuItemOption>
+              </>
+            ) : token && !auth ? (
+              <>
+                <MenuItemOption>Minha Conta</MenuItemOption>
+                <MenuItemOption>Meus Pedidos</MenuItemOption>
+                <MenuItemOption>Atualizar Endereço</MenuItemOption>
+                <MenuItemOption>Atualizar Informações</MenuItemOption>
+                <MenuItemOption onClick={handleLogout}>Logout</MenuItemOption>
+              </>
+            ) : (
+              <>
+                <MenuItemOption onClick={() => navigate("/login")}>
+                  Login
+                </MenuItemOption>
+                <MenuItemOption onClick={() => navigate("/register")}>
+                  Cadastre-se
+                </MenuItemOption>
+              </>
+            )}
+          </MenuList>
+        </Menu>
         <MenuItem
           onToggle={onToggle}
           isOpen={isOpen}

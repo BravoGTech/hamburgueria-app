@@ -18,7 +18,7 @@ export const Header = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const cart = localStorage.getItem("cart") || "[]";
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
     setQuantity(cart.length);
   }, [ordersQuantity]);
 

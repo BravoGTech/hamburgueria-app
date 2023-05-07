@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IMenuItemInterfaceData } from "../../interfaces/ContextInterface/menuItem.interfaces";
+import { IMenuItemInterfaceData } from "../../interfaces/menuItem.interfaces";
 import {
   Flex,
   Grid,
@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { BsCartPlusFill } from "react-icons/bs";
 import { ModalConfirm } from "./ModalConfirm";
+import { FaCaretDown, FaCaretRight } from "react-icons/fa";
 
 interface IMenuItemCardProps {
   item: IMenuItemInterfaceData;
@@ -27,13 +28,20 @@ export const MenuItensCard = ({ item }: IMenuItemCardProps) => {
   return (
     <>
       <Grid
-        templateColumns="auto 1fr 100px"
+        templateColumns="auto auto 1fr auto"
         gap={4}
         p="1rem 0"
         color="logo-color"
         onClick={handleClick}
         cursor="pointer"
+        justifyItems="center"
+        alignItems="center"
       >
+        <GridItem>
+          <Text as="b">
+            {show ? <FaCaretDown size="26px" /> : <FaCaretRight size="26px" />}
+          </Text>
+        </GridItem>
         <GridItem>
           <Text>{item.name}</Text>
         </GridItem>
@@ -55,17 +63,19 @@ export const MenuItensCard = ({ item }: IMenuItemCardProps) => {
           borderRadius={"10px"}
           // p="1rem"
           justify={"space-around"}
+          align={{ base: "center" }}
           gap="1rem"
           w="94%"
+          flexDir={{ base: "column", md: "row" }}
         >
           <Image
             src={item.imageURL}
             minW={"200px"}
             w="30%"
-            borderRadius={"10px"}
+            borderRadius={"20px"}
             p="1rem"
           />
-          <Flex flexDir={"column"} w="100%" gap="0.5rem" p="1rem 0">
+          <Flex flexDir={"column"} w="100%" gap="0.5rem" p="1rem">
             <Heading
               fontWeight={"400"}
               lineHeight={"37.5px"}
@@ -91,8 +101,9 @@ export const MenuItensCard = ({ item }: IMenuItemCardProps) => {
           </Flex>
           <Flex
             bg="#5f4848"
-            w="15%"
-            borderTopRightRadius={"10"}
+            p={{ base: "0.5rem"}}
+            w={{ base: "100%", md: "15%" }}
+            borderTopRightRadius={{ base: "0", md: "10" }}
             borderBottomRightRadius={"10"}
             cursor={"pointer"}
             align={"center"}
