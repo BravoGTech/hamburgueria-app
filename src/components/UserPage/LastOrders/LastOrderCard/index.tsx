@@ -4,6 +4,8 @@ import {
   IUserDetailsOrderProps,
 } from "../../../../interfaces/orders.interfaces";
 import { IMenuItemData } from "../../../../interfaces/menuItem.interfaces";
+import { useContext } from "react";
+import { OrderContext } from "../../../../contexts/OrdersContext";
 
 interface IMenuItemDataProps {
   MenuItemCart: {
@@ -16,8 +18,7 @@ interface IMenuItemDataProps {
 }
 
 export const LastOrderCard = ({ order }: IUserDetailsOrderProps) => {
-  console.log(order);
-
+  const { setOrdersQuantity } = useContext(OrderContext);
   const formatDate = (date: Date) => {
     const newDate = new Date(date);
     const day = newDate.getDay();
@@ -44,7 +45,9 @@ export const LastOrderCard = ({ order }: IUserDetailsOrderProps) => {
       };
 
       cart.push(menuItem);
+      setOrdersQuantity(orderItem.quantity + 1)
     });
+
 
     localStorage.setItem("cart", JSON.stringify(cart));
   };
