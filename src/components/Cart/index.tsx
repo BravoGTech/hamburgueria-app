@@ -31,7 +31,7 @@ export const Cart = () => {
     userDetails?.addresses?.find((address) => address.preferred)?.id
   );
   const [userId, setUserId] = useState("");
-            <option value="default">Selecione o método de pagamento</option>
+
   const [paymentMethod, setPaymentMethod] = useState("default");
 
   // Load cart and user data from local storage and server
@@ -94,10 +94,12 @@ export const Cart = () => {
         userDetails?.addresses?.find((address) => address.preferred)?.id
       );
     }
-
+    console.log(selectedAddress)
     const newOrder: ICreateOrder = {
       orderNumber: orderNumber,
-      deliveryAddressId: selectedAddress!,
+      deliveryAddressId: selectedAddress
+        ? selectedAddress
+        : userDetails?.addresses?.find((address) => address.preferred)?.id!,
       paymentMethod: paymentMethod,
       userId: userId!,
       orderItems,
@@ -198,7 +200,11 @@ export const Cart = () => {
             currency: "BRL",
           })}
         </Heading>
-        <Button isDisabled={paymentMethod === "default" ? true : false} onClick={handleFinishCheckout} colorScheme="green">
+        <Button
+          isDisabled={paymentMethod === "default" ? true : false}
+          onClick={handleFinishCheckout}
+          colorScheme="green"
+        >
           Finalizar Compra
         </Button>
       </Flex>

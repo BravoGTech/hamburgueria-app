@@ -2,11 +2,14 @@ import { z } from "zod";
 import {
   BaseOrderSchema,
   Order,
+  UserDetailOrderSchema,
   createOrderSchema,
   returnCreateOrderSchema,
+  returnOrderDataSchema,
 } from "../schemas/orders.schemas";
 import { UseMutateFunction } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { OrderForUserDetailSchema } from "../schemas/orderItems.schemas";
 
 export interface IOrderContextData {
   data: IOrdersData | undefined;
@@ -24,13 +27,20 @@ export interface IOrderContextData {
     IStatusOrder,
     unknown
   >;
-  deleteOrder: UseMutateFunction<any, unknown, string, unknown>
-  isFetching: boolean
+  deleteOrder: UseMutateFunction<any, unknown, string, unknown>;
+  isFetching: boolean;
+  statusChange: boolean
 }
 
 export type ICreateOrder = z.infer<typeof createOrderSchema>;
 
 export type IReturnCreateOrder = z.infer<typeof returnCreateOrderSchema>;
+
+export type IUserDetailOrders = z.infer<typeof UserDetailOrderSchema>;
+
+export interface IUserDetailsOrderProps {
+  order: IUserDetailOrders
+}
 
 export type ICreateOrderWithFunction = {
   newOrder: ICreateOrder;

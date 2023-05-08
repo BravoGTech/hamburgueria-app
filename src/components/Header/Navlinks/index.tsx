@@ -58,6 +58,7 @@ export const NavLinks = ({ isOpen, onToggle }: NavLinksProps) => {
   const handleLogout = () => {
     localStorage.removeItem("cart");
     localStorage.removeItem("@DownTown:Token");
+    localStorage.removeItem("@DownTown:Admin");
     setAuth(false);
     navigate("/");
   };

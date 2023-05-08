@@ -11,7 +11,7 @@ export const UserAddresses = ({ addresses }: IUserAddress) => {
       <Flex
         w="100%"
         align={"center"}
-        justify={"center"}
+        justify={"flex-start"}
         flexDir={"column"}
         gap="1rem"
         mt="2rem"

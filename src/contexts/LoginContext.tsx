@@ -18,10 +18,11 @@ export const LoginProvider = ({ children }: IProvider) => {
       .then((response) => {
         const token = response.data.token;
         localStorage.setItem("@DownTown:Token", token);
-        const decoded = jwt_decode<any>(token);
+        localStorage.setItem("@DownTown:Admin", response.data.isAdmin);
+
         toast.success("Login realizado com sucesso");
 
-        if (decoded.isAdmin) {
+        if (response.data.isAdmin) {
           navigate("/admin");
         } else {
           navigate("/user");

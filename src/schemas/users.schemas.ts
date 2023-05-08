@@ -3,7 +3,7 @@ import {
   createAddressSchema,
   deliveryAddressSchema,
 } from "./addresses.schemas";
-import { returnOrderDataSchema } from "./orders.schemas";
+import { UserDetailOrderSchema, returnOrderDataSchema } from "./orders.schemas";
 
 export const userSchema = z.object({
   id: z.string(),
@@ -28,5 +28,5 @@ export const ResponseCreateUserSchema = userSchema.extend({
 });
 
 export const listUserDetailsSchema = ResponseCreateUserSchema.extend({
-  orders: z.array(returnOrderDataSchema),
+  orders: z.array(UserDetailOrderSchema),
 });

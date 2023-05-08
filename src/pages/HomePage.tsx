@@ -17,7 +17,7 @@ export const HomePage = () => {
   const navigate = useNavigate();
   return (
     <Box>
-      <Container maxW={"5xl"} display={"flex"}>
+      <Container maxW={"5xl"} display={"flex"} justifyContent={'space-between'} gap='2rem'>
         <Flex
           as="section"
           flexDir={"column"}
@@ -41,7 +41,7 @@ export const HomePage = () => {
           <Button
             fontFamily={"Inter"}
             borderRadius={"50px"}
-            maxWidth={'330px'}
+            maxWidth={"330px"}
             bg="#E4D8C4"
             p="24px"
             fontSize={"18px"}
@@ -51,7 +51,13 @@ export const HomePage = () => {
             Acessar Cardápio
           </Button>
         </Flex>
-        <Image w='70%' src={burger} pl="5rem" display={{ base: "none", lg: "block" }} />
+        <Image
+          w={{base: '50%', md: "100%"}}
+          src={burger}
+          pl="5rem"
+          display={{ base: "none", lg: "flex" }}
+          objectFit={"contain"}
+        />
       </Container>
 
       <Flex bg="#E1D4C0" mt="2rem" p="2rem 0">

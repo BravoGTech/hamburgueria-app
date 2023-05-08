@@ -12,7 +12,8 @@ import { api } from "../services/api";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
-import jwt_decode from 'jwt-decode'
+import jwt_decode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 export const OrderContext = createContext<IOrderContextData>(
   {} as IOrderContextData
@@ -20,6 +21,12 @@ export const OrderContext = createContext<IOrderContextData>(
 
 export const OrderProvider = ({ children }: IProvider) => {
   const [ordersQuantity, setOrdersQuantity] = useState(0);
+  const [statusChange, setStatusChange] = useState(false);
+
+  const navigate = useNavigate();
+
+  const isAdmin = localStorage.getItem("@DownTown:Admin");
+
   const listOrders = async (): Promise<IOrdersData> => {
     const token = localStorage.getItem("@DownTown:Token");
 
@@ -28,14 +35,10 @@ export const OrderProvider = ({ children }: IProvider) => {
     return response.data;
   };
 
-  const token = localStorage.getItem("@DownTown:Token")
-  
-  const {isAdmin} = jwt_decode<any>(token)
-
   const { data, isFetching, isError, refetch } = useQuery({
     queryKey: ["orders"],
     queryFn: listOrders,
-    enabled: isAdmin && token != null,
+    enabled: isAdmin === "true",
   });
 
   const { mutate: createOrder } = useMutation(
@@ -56,8 +59,7 @@ export const OrderProvider = ({ children }: IProvider) => {
         console.log(response);
         toast.success("Pedido Efetuado com sucesso");
         localStorage.setItem("cart", "[]");
-        refetch();
-
+        navigate("/user");
         return response;
       },
       onError: (error: any) => {
@@ -77,6 +79,7 @@ export const OrderProvider = ({ children }: IProvider) => {
     },
     {
       onSuccess: (response) => {
+        setStatusChange(!statusChange);
         refetch();
       },
       onError: (error: AxiosError) => {
@@ -112,6 +115,7 @@ export const OrderProvider = ({ children }: IProvider) => {
         statusOrder,
         deleteOrder,
         isFetching,
+        statusChange
       }}
     >
       {children}

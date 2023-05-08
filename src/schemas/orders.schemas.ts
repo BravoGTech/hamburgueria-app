@@ -1,22 +1,36 @@
 import { z } from "zod";
 import {
+  OrderForUserDetailSchema,
   orderItemDataSchema,
   orderItemForOrder,
   orderItemSchema,
 } from "./orderItems.schemas";
-import { userSchema } from "./users.schemas";
+
 import { deliveryAddressSchema } from "./addresses.schemas";
 
 export const BaseOrderSchema = z.object({
-  id: z.string(),
+  id: z.string(), //
   orderNumber: z.number(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
-  paymentMethod: z.string(),
-  orderConfirm: z.boolean(),
-  finishedOrder: z.boolean(),
-  orderItems: z.array(orderItemSchema),
-  deliveryAddress: deliveryAddressSchema,
+  createdAt: z.date(), //
+  updatedAt: z.date(), //
+  paymentMethod: z.string(), //
+  orderConfirm: z.boolean(), //
+  finishedOrder: z.boolean(), //
+  orderItems: z.array(orderItemSchema), //
+  deliveryAddress: deliveryAddressSchema, //
+});
+
+export const UserDetailOrderSchema = z.object({
+  id: z.string(), //
+  orderNumber: z.number(),
+  createdAt: z.date(), //
+  updatedAt: z.date(), //
+  paymentMethod: z.string(), //
+  orderConfirm: z.boolean(), //
+  finishedOrder: z.boolean(), //
+  orderItems: z.array(OrderForUserDetailSchema), //
+  deliveryAddress: deliveryAddressSchema, //
+  userId: z.string(),
 });
 
 export const createOrderSchema = BaseOrderSchema.omit({
@@ -37,7 +51,7 @@ export const returnCreateOrderSchema = BaseOrderSchema.extend({
 });
 
 export const returnOrderDataSchema = BaseOrderSchema.extend({
-  orderItems: z.array(orderItemDataSchema),
+  orderItems: z.array(UserDetailOrderSchema),
 });
 
 export const User = z.object({
