@@ -15,7 +15,7 @@ export const UserPage = () => {
 
   const token = localStorage.getItem("@DownTown:Token");
   const navigate = useNavigate();
-  
+
   if (!token) {
     navigate("/login");
   }
@@ -23,8 +23,6 @@ export const UserPage = () => {
   useEffect(() => {
     listUserProfile();
   }, [handleAddress, statusChange]);
-
-  console.log("userProfille", userProfile.orders);
 
   return (
     <Container maxW={"8xl"}>
@@ -61,15 +59,15 @@ export const UserPage = () => {
       <Flex
         justify={"center"}
         flexDir={"column"}
-        align={{ base: "center", md: "flex-start" }}
-        justifyContent={{ base: "center", md: "flex-start" }}
+        align={{ base: "center", lg: "flex-start" }}
+        justifyContent={{ base: "center", lg: "flex-start" }}
         gap="1rem"
         mt="2rem"
       >
         <Heading textAlign={"center"} fontFamily={"Montserrat"}>
           Acompanhar Pedidos
         </Heading>
-        <Flex flexDir={{ base: "column", md: "row" }} gap="1rem">
+        <Flex flexDir={{ base: "column", lg: "row" }} gap="1rem">
           {userProfile?.orders
             ?.filter((order) => !order.confirmDelivery)
             .map((order) => {

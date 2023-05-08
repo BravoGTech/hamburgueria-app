@@ -22,12 +22,14 @@ export const CurrentOrdersCard = ({ order }: IUserDetailsOrderProps) => {
     >
       {order?.orderItems?.map((item) => {
         return (
-          <Flex flexDir={{ base: "column", md: "row" }} gap="1rem">
+          <Flex
+            flexDir={{ base: "column", lg: "row" }}
+            gap="1rem"
+            align={{ base: "center" }}
+          >
             <Image
               src={item.menuItem.imageURL}
-              w="100%"
-              maxW={"140px"}
-              maxH={"190px"}
+              w={{ base: "70%", lg: "30%" }}
               borderRadius={"10px"}
               objectFit={"cover"}
             />

@@ -1,5 +1,19 @@
 import { Button, Flex, Image, Text } from "@chakra-ui/react";
-import { IUserDetailsOrderProps } from "../../../../interfaces/orders.interfaces";
+import {
+  IUserDetailOrders,
+  IUserDetailsOrderProps,
+} from "../../../../interfaces/orders.interfaces";
+import { IMenuItemData } from "../../../../interfaces/menuItem.interfaces";
+
+interface IMenuItemDataProps {
+  MenuItemCart: {
+    menuItemId: string;
+    quantity: number;
+    total: number;
+    instructions: string;
+  };
+  MenuItem: IMenuItemData;
+}
 
 export const LastOrderCard = ({ order }: IUserDetailsOrderProps) => {
   console.log(order);
@@ -13,6 +27,28 @@ export const LastOrderCard = ({ order }: IUserDetailsOrderProps) => {
     return `${day}/${month}/${year}`;
   };
 
+  const addToCart = (item: IUserDetailOrders) => {
+    const cart: IMenuItemDataProps[] = JSON.parse(
+      localStorage.getItem("cart") || "[]"
+    );
+
+    item.orderItems.forEach((orderItem) => {
+      const menuItem: IMenuItemDataProps = {
+        MenuItemCart: {
+          instructions: orderItem.instructions,
+          menuItemId: orderItem.menuItemId,
+          quantity: orderItem.quantity,
+          total: orderItem.total,
+        },
+        MenuItem: orderItem.menuItem,
+      };
+
+      cart.push(menuItem);
+    });
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+  };
+
   return (
     <Flex
       bg="rgba(255, 255, 255, 0.80)"
@@ -24,15 +60,13 @@ export const LastOrderCard = ({ order }: IUserDetailsOrderProps) => {
       {order?.orderItems?.map((item) => {
         return (
           <Flex
-            flexDir={{ base: "column", md: "row" }}
+            flexDir={{ base: "column", lg: "row" }}
             gap="1rem"
             align={{ base: "center" }}
           >
             <Image
               src={item.menuItem.imageURL}
-              w="100%"
-              maxW={"140px"}
-              maxH={"190px"}
+              w={{ base: "80%", lg: "40%" }}
               borderRadius={"10px"}
               objectFit={"cover"}
             />
@@ -44,7 +78,12 @@ export const LastOrderCard = ({ order }: IUserDetailsOrderProps) => {
                 <Text as="b">Pedido:</Text> {item.quantity}x{" "}
                 {item.menuItem.name}
               </Text>
-              <Button fontSize={"13px"} borderRadius={"20px"} bg="logo-color">
+              <Button
+                fontSize={"13px"}
+                borderRadius={"20px"}
+                bg="logo-color"
+                onClick={() => addToCart(order)}
+              >
                 Adicionar ao Carrinho
               </Button>
             </Flex>
