@@ -23,7 +23,11 @@ export const LastOrderCard = ({ order }: IUserDetailsOrderProps) => {
     >
       {order?.orderItems?.map((item) => {
         return (
-          <Flex flexDir={{ base: "column", md: "row" }} gap="1rem">
+          <Flex
+            flexDir={{ base: "column", md: "row" }}
+            gap="1rem"
+            align={{ base: "center" }}
+          >
             <Image
               src={item.menuItem.imageURL}
               w="100%"

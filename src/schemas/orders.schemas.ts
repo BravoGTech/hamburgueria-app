@@ -28,6 +28,7 @@ export const UserDetailOrderSchema = z.object({
   paymentMethod: z.string(), //
   orderConfirm: z.boolean(), //
   finishedOrder: z.boolean(), //
+  confirmDelivery: z.boolean(),
   orderItems: z.array(OrderForUserDetailSchema), //
   deliveryAddress: deliveryAddressSchema, //
   userId: z.string(),
@@ -40,6 +41,7 @@ export const createOrderSchema = BaseOrderSchema.omit({
   user: true,
   orderConfirm: true,
   finishedOrder: true,
+  confirmDelivery: true,
   deliveryAddress: true,
 }).extend({
   userId: z.string(),
@@ -68,6 +70,7 @@ export const Order = z.object({
   updatedAt: z.string(),
   paymentMethod: z.string(),
   orderConfirm: z.boolean(),
+  confirmDelivery: z.boolean(),
   finishedOrder: z.boolean(),
   orderItems: z.array(orderItemForOrder),
   user: User,

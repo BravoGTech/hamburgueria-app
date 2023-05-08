@@ -4,11 +4,14 @@ import { CreateMenuItem } from "../components/CardapioForms/CreateMenuItem";
 import { EditMenuItem } from "../components/CardapioForms/EditMenuItem";
 import { DeleteMenuItem } from "../components/CardapioForms/DeleteMenuItem";
 import useAdminAuth from "../components/useAdminAuth";
+import { useNavigate } from "react-router-dom";
 
 export const AdminPage = () => {
   useAdminAuth();
   const [showSubMenu, setShowSubMenu] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState<number | null>(null);
+
+  const navigate = useNavigate();
 
   const handleSubMenu = () => {
     setShowSubMenu(!showSubMenu);
@@ -34,6 +37,24 @@ export const AdminPage = () => {
           borderBottom={showSubMenu ? "solid 1px white" : "none"}
         >
           Atualizar Cardápio
+        </Heading>
+        <Heading
+          onClick={() => navigate("/orders")}
+          cursor={"pointer"}
+          fontFamily={"Montserrat"}
+          fontSize={"22px"}
+          borderBottom={showSubMenu ? "solid 1px white" : "none"}
+        >
+          Pedidos
+        </Heading>
+        <Heading
+          onClick={() => navigate("/delivery")}
+          cursor={"pointer"}
+          fontFamily={"Montserrat"}
+          fontSize={"22px"}
+          borderBottom={showSubMenu ? "solid 1px white" : "none"}
+        >
+          Entregas
         </Heading>
       </Flex>
       {showSubMenu && (

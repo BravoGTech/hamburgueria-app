@@ -17,8 +17,9 @@ import { useNavigate } from "react-router-dom";
 import useAdminAuth from "../components/useAdminAuth";
 
 export const DeliveryPage = () => {
-  useAdminAuth()
-  const { data, deleteOrder } = useContext(OrderContext);
+  useAdminAuth();
+  const { data, deleteOrder, statusOrder, statusChange } =
+    useContext(OrderContext);
 
   const [orders, setOrders] = useState<IOrdersData>();
 
@@ -39,6 +40,14 @@ export const DeliveryPage = () => {
 
   const handleDelete = (id: string) => {
     deleteOrder(id);
+  };
+
+  const handleConfirmDelivery = (orderId: string) => {
+    const data = {
+      orderId,
+      confirmDelivery: true,
+    };
+    statusOrder({ data });
   };
 
   return (
@@ -76,35 +85,45 @@ export const DeliveryPage = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {orders?.map((order) => (
-                  <Fragment key={order.id}>
-                    {order.finishedOrder && (
-                      <Tr>
-                        <Td textAlign={"center"}>{order.orderNumber}</Td>
-                        <Td textAlign={"center"}>
-                          {formatDate(order.createdAt)}
-                        </Td>
-                        <Td textAlign={"center"}>
-                          {formatDate(order.updatedAt)}
-                        </Td>
-                        <Td textAlign={"center"}>
-                          {order.deliveryAddress.street},{" "}
-                          {order.deliveryAddress.complement}
-                        </Td>
-                        <Td textAlign={"center"}>
-                          <Button
-                            onClick={() => handleDelete(order.id)}
-                            colorScheme="red"
-                            variant="outline"
-                            size="sm"
-                          >
-                            Cancelar
-                          </Button>
-                        </Td>
-                      </Tr>
-                    )}
-                  </Fragment>
-                ))}
+                {orders
+                  ?.filter((order) => !order.confirmDelivery)
+                  .map((order) => (
+                    <Fragment key={order.id}>
+                      {order.finishedOrder && (
+                        <Tr>
+                          <Td textAlign={"center"}>{order.orderNumber}</Td>
+                          <Td textAlign={"center"}>
+                            {formatDate(order.createdAt)}
+                          </Td>
+                          <Td textAlign={"center"}>
+                            {formatDate(order.updatedAt)}
+                          </Td>
+                          <Td textAlign={"center"}>
+                            {order.deliveryAddress.street},{" "}
+                            {order.deliveryAddress.complement}
+                          </Td>
+                          <Td textAlign={"center"} display={"flex"} gap="1rem">
+                            <Button
+                              onClick={() => handleConfirmDelivery(order.id)}
+                              colorScheme="green"
+                              variant="outline"
+                              size="sm"
+                            >
+                              Confirmar
+                            </Button>
+                            <Button
+                              onClick={() => handleDelete(order.id)}
+                              colorScheme="red"
+                              variant="outline"
+                              size="sm"
+                            >
+                              Cancelar
+                            </Button>
+                          </Td>
+                        </Tr>
+                      )}
+                    </Fragment>
+                  ))}
               </Tbody>
             </Table>
           )}
