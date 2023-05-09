@@ -98,7 +98,7 @@ export const NavLinks = ({ isOpen, onToggle }: NavLinksProps) => {
         <MenuItem
           onToggle={onToggle}
           isOpen={isOpen}
-          to=""
+          to="/contacts"
           activeLink={activeLink}
           handleClick={handleClick}
         >

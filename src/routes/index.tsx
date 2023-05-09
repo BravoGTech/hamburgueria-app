@@ -8,6 +8,7 @@ import { AdminPage } from "../pages/AdminPage";
 import { OrdersPage } from "../pages/OrdersPage";
 import { DeliveryPage } from "../pages/DeliveryPage";
 import { UserPage } from "../pages/UserPage";
+import { ContactPage } from "../pages/ContactPage";
 
 export const Routers = () => {
   return (
@@ -21,6 +22,7 @@ export const Routers = () => {
       <Route path="/orders" element={<OrdersPage />} />
       <Route path="/delivery" element={<DeliveryPage />} />
       <Route path="/user" element={<UserPage />} />
+      <Route path="/contacts" element={<ContactPage />} />
     </Routes>
   );
 };
