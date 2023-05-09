@@ -3,11 +3,13 @@ import {
   Checkbox,
   Flex,
   FormControl,
+  FormErrorMessage,
+  FormHelperText,
   FormLabel,
   Input,
   VStack,
 } from "@chakra-ui/react";
-import { InputForm } from "../InputForm";
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ICreateUser } from "../../interfaces/users.interfaces";
@@ -70,34 +72,43 @@ export const RegisterForm = () => {
       align={"flex-start"}
     >
       <VStack spacing={6}>
-        <InputForm
-          name={"name"}
-          placeHolder="Digite seu nome"
-          type="text"
-          label="Nome"
-          register={register}
-        />
-        <InputForm
-          name={"email"}
-          placeHolder="Digite seu melhor email"
-          type="text"
-          label="Email"
-          register={register}
-        />
-        <InputForm
-          name={"password"}
-          placeHolder="Digite sua senha"
-          type="password"
-          label="Senha"
-          register={register}
-        />
-        <InputForm
-          name={"phoneNumber"}
-          placeHolder="Digite seu celular"
-          type="text"
-          label="Telefone"
-          register={register}
-        />
+        <FormControl isInvalid={!!errors.name}>
+          <FormLabel>Nome</FormLabel>
+          <Input placeholder="Digite seu nome" {...register("name")} />
+          {!!errors.name && (
+            <FormErrorMessage>{errors.name.message}</FormErrorMessage>
+          )}
+        </FormControl>
+        <FormControl isInvalid={!!errors.email}>
+          <FormLabel>E-mail</FormLabel>
+          <Input placeholder="Digite seu melhor email" {...register("email")} />
+          {!!errors.email ? (
+            <FormErrorMessage>{errors.email.message}</FormErrorMessage>
+          ) : (
+            <FormHelperText>Ex: mail@email.com</FormHelperText>
+          )}
+        </FormControl>
+        <FormControl isInvalid={!!errors.password}>
+          <FormLabel>Senha</FormLabel>
+          <Input
+            type="password"
+            placeholder="Digite sua senha"
+            {...register("password")}
+          />
+          {!!errors.password && (
+            <FormErrorMessage>{errors.password.message}</FormErrorMessage>
+          )}
+        </FormControl>
+        <FormControl isInvalid={!!errors.phoneNumber}>
+          <FormLabel>Telefone</FormLabel>
+          <Input
+            placeholder="Digite seu celular"
+            {...register("phoneNumber")}
+          />
+          {!!errors.phoneNumber && (
+            <FormErrorMessage>{errors.phoneNumber.message}</FormErrorMessage>
+          )}
+        </FormControl>
       </VStack>
       <VStack spacing={6}>
         <FormControl>

@@ -1,6 +1,15 @@
-import { Button, Flex, VStack } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  FormControl,
+  FormErrorMessage,
+  FormHelperText,
+  FormLabel,
+  Input,
+  VStack,
+} from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { InputForm } from "../InputForm";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../../schemas/login.schemas";
 import { useContext } from "react";
@@ -31,24 +40,27 @@ export const LoginForm = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <VStack spacing={6}>
-        <InputForm
-          name="email"
-          placeHolder="Insira seu email"
-          type="text"
-          register={register}
-          label="Email"
-          error={errors.email}
-          errorMessage={errors.email?.message}
-        />
-        <InputForm
-          name="password"
-          placeHolder="Insira sua senha"
-          type="password"
-          register={register}
-          label="Senha"
-          error={errors.password}
-          errorMessage={errors.password?.message}
-        />
+        <FormControl isInvalid={!!errors.email}>
+          <FormLabel>E-mail</FormLabel>
+          <Input placeholder="Insira seu email" {...register("email")} />
+          {!!errors.email ? (
+            <FormErrorMessage>{errors.email.message}</FormErrorMessage>
+          ) : (
+            <FormHelperText>Ex: exemplo@email.com.br</FormHelperText>
+          )}
+        </FormControl>
+        <FormControl isInvalid={!!errors.password}>
+          <FormLabel>Senha</FormLabel>
+          <Input
+            placeholder="Insira sua senha"
+            type="password"
+            {...register("password")}
+          />
+          {!!errors.password && (
+            <FormErrorMessage>{errors.password.message}</FormErrorMessage>
+          )}
+        </FormControl>
+
         <Button borderRadius={"20px"} w="100%" type="submit" bg="logo-color">
           Login
         </Button>

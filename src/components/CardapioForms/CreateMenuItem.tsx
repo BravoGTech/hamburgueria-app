@@ -9,7 +9,6 @@ import {
   Spinner,
   Textarea,
 } from "@chakra-ui/react";
-import { InputForm } from "../InputForm";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import { CategoriesContext } from "../../contexts/CategoriesContext";
@@ -60,25 +59,20 @@ export const CreateMenuItem = () => {
       gap="1rem"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <InputForm
-        name={"name"}
-        placeHolder="Digite o nome do produto"
-        type="text"
-        register={register}
-        label="Nome"
-        error={errors.name}
-        errorMessage={errors.name?.message}
-      />
-      <InputForm
-        name={"imageURL"}
-        placeHolder="Digite a URL da imagem"
-        type="text"
-        register={register}
-        label="Imagem"
-        error={errors.imageURL}
-        errorMessage={errors.imageURL?.message}
-      />
-
+      <FormControl isInvalid={!!errors.name}>
+        <FormLabel>Nome</FormLabel>
+        <Input placeholder="Digite o nome do produto" {...register("name")} />
+        {!!errors.name && (
+          <FormErrorMessage>{errors.name.message}</FormErrorMessage>
+        )}
+      </FormControl>
+      <FormControl isInvalid={!!errors.imageURL}>
+        <FormLabel>Imagem</FormLabel>
+        <Input placeholder="Digite a URL da imagem" {...register("imageURL")} />
+        {!!errors.imageURL && (
+          <FormErrorMessage>{errors.imageURL.message}</FormErrorMessage>
+        )}
+      </FormControl>
       <FormControl isInvalid={!!errors}>
         <FormLabel color={"primary-color"}>Preço</FormLabel>
         <Input

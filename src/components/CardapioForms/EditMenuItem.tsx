@@ -10,7 +10,7 @@ import {
   Spinner,
   Textarea,
 } from "@chakra-ui/react";
-import { InputForm } from "../InputForm";
+
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateMenuItemSchema } from "../../schemas/menuItem.schemas";
@@ -103,26 +103,32 @@ export const EditMenuItem = () => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <Divider />
-          <InputForm
-            name={"name"}
-            placeHolder="Digite o nome do produto"
-            type="text"
-            register={register}
-            label="Nome"
-            value={menuItemDeatilData?.name}
-            error={errors.name}
-            errorMessage={errors.name?.message}
-          />
-          <InputForm
-            name={"imageURL"}
-            placeHolder="Digite a URL da imagem"
-            type="text"
-            register={register}
-            label="Imagem"
-            value={menuItemDeatilData?.imageURL}
-            error={errors.imageURL}
-            errorMessage={errors.imageURL?.message}
-          />
+          <FormControl isInvalid={!!errors.name}>
+            <FormLabel color={"primary-color"}>Nome</FormLabel>
+            <Input
+              placeholder="Digite o nome do produto"
+              {...register("name")}
+              bg="title-color"
+              defaultValue={menuItemDeatilData?.name}
+              borderRadius={"20px"}
+            />
+            {!!errors.name && (
+              <FormErrorMessage>{errors.name.message}</FormErrorMessage>
+            )}
+          </FormControl>
+          <FormControl isInvalid={!!errors.imageURL}>
+            <FormLabel color={"primary-color"}>Imagem</FormLabel>
+            <Input
+              placeholder="Digite a URL da imagem"
+              defaultValue={menuItemDeatilData?.imageURL}
+              {...register("imageURL")}
+              bg="title-color"
+              borderRadius={"20px"}
+            />
+            {!!errors.imageURL && (
+              <FormErrorMessage>{errors.imageURL.message}</FormErrorMessage>
+            )}
+          </FormControl>
 
           <FormControl isInvalid={!!errors.price}>
             <FormLabel color={"primary-color"}>Preço</FormLabel>
