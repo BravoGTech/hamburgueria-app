@@ -41,17 +41,26 @@ export const LoginForm = () => {
     >
       <VStack spacing={6}>
         <FormControl isInvalid={!!errors.email}>
-          <FormLabel>E-mail</FormLabel>
-          <Input placeholder="Insira seu email" {...register("email")} />
+          <FormLabel color={"primary-color"}>E-mail</FormLabel>
+          <Input
+            bg="title-color"
+            borderRadius={"20px"}
+            placeholder="Insira seu email"
+            {...register("email")}
+          />
           {!!errors.email ? (
             <FormErrorMessage>{errors.email.message}</FormErrorMessage>
           ) : (
-            <FormHelperText>Ex: exemplo@email.com.br</FormHelperText>
+            <FormHelperText color="white">
+              Ex: exemplo@email.com.br
+            </FormHelperText>
           )}
         </FormControl>
         <FormControl isInvalid={!!errors.password}>
-          <FormLabel>Senha</FormLabel>
+          <FormLabel color={"primary-color"}>Senha</FormLabel>
           <Input
+            borderRadius={"20px"}
+            bg="title-color"
             placeholder="Insira sua senha"
             type="password"
             {...register("password")}

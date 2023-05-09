@@ -73,15 +73,25 @@ export const RegisterForm = () => {
     >
       <VStack spacing={6}>
         <FormControl isInvalid={!!errors.name}>
-          <FormLabel>Nome</FormLabel>
-          <Input placeholder="Digite seu nome" {...register("name")} />
+          <FormLabel color={"primary-color"}>Nome</FormLabel>
+          <Input
+            bg="title-color"
+            borderRadius={"20px"}
+            placeholder="Digite seu nome"
+            {...register("name")}
+          />
           {!!errors.name && (
             <FormErrorMessage>{errors.name.message}</FormErrorMessage>
           )}
         </FormControl>
         <FormControl isInvalid={!!errors.email}>
-          <FormLabel>E-mail</FormLabel>
-          <Input placeholder="Digite seu melhor email" {...register("email")} />
+          <FormLabel color={"primary-color"}>E-mail</FormLabel>
+          <Input
+            placeholder="Digite seu melhor email"
+            {...register("email")}
+            bg="title-color"
+            borderRadius={"20px"}
+          />
           {!!errors.email ? (
             <FormErrorMessage>{errors.email.message}</FormErrorMessage>
           ) : (
@@ -89,21 +99,25 @@ export const RegisterForm = () => {
           )}
         </FormControl>
         <FormControl isInvalid={!!errors.password}>
-          <FormLabel>Senha</FormLabel>
+          <FormLabel color={"primary-color"}>Senha</FormLabel>
           <Input
             type="password"
             placeholder="Digite sua senha"
             {...register("password")}
+            bg="title-color"
+            borderRadius={"20px"}
           />
           {!!errors.password && (
             <FormErrorMessage>{errors.password.message}</FormErrorMessage>
           )}
         </FormControl>
         <FormControl isInvalid={!!errors.phoneNumber}>
-          <FormLabel>Telefone</FormLabel>
+          <FormLabel color={"primary-color"}>Telefone</FormLabel>
           <Input
             placeholder="Digite seu celular"
             {...register("phoneNumber")}
+            bg="title-color"
+            borderRadius={"20px"}
           />
           {!!errors.phoneNumber && (
             <FormErrorMessage>{errors.phoneNumber.message}</FormErrorMessage>

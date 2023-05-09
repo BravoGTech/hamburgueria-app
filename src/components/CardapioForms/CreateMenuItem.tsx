@@ -60,20 +60,30 @@ export const CreateMenuItem = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <FormControl isInvalid={!!errors.name}>
-        <FormLabel>Nome</FormLabel>
-        <Input placeholder="Digite o nome do produto" {...register("name")} />
+        <FormLabel color={"primary-color"}>Nome</FormLabel>
+        <Input
+          placeholder="Digite o nome do produto"
+          {...register("name")}
+          bg="title-color"
+          borderRadius={"20px"}
+        />
         {!!errors.name && (
           <FormErrorMessage>{errors.name.message}</FormErrorMessage>
         )}
       </FormControl>
       <FormControl isInvalid={!!errors.imageURL}>
-        <FormLabel>Imagem</FormLabel>
-        <Input placeholder="Digite a URL da imagem" {...register("imageURL")} />
+        <FormLabel color={"primary-color"}>Imagem</FormLabel>
+        <Input
+          placeholder="Digite a URL da imagem"
+          {...register("imageURL")}
+          bg="title-color"
+          borderRadius={"20px"}
+        />
         {!!errors.imageURL && (
           <FormErrorMessage>{errors.imageURL.message}</FormErrorMessage>
         )}
       </FormControl>
-      <FormControl isInvalid={!!errors}>
+      <FormControl isInvalid={!!errors.price}>
         <FormLabel color={"primary-color"}>Preço</FormLabel>
         <Input
           bg="title-color"
@@ -88,7 +98,7 @@ export const CreateMenuItem = () => {
           <FormErrorMessage>{errors.price.message}</FormErrorMessage>
         )}
       </FormControl>
-      <FormControl isInvalid={!!errors}>
+      <FormControl isInvalid={!!errors.description}>
         <FormLabel color={"primary-color"}>Descrição</FormLabel>
         <Textarea
           bg="title-color"
@@ -100,7 +110,7 @@ export const CreateMenuItem = () => {
           <FormErrorMessage>{errors.description.message}</FormErrorMessage>
         )}
       </FormControl>
-      <FormControl isInvalid={!!errors}>
+      <FormControl isInvalid={!!errors.categoryId}>
         <FormLabel color={"primary-color"}>Categoria</FormLabel>
         <Select
           {...register("categoryId")}

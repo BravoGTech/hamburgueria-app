@@ -43,7 +43,6 @@ export const AdminPage = () => {
           cursor={"pointer"}
           fontFamily={"Montserrat"}
           fontSize={"22px"}
-          borderBottom={showSubMenu ? "solid 1px white" : "none"}
         >
           Pedidos
         </Heading>
@@ -52,7 +51,6 @@ export const AdminPage = () => {
           cursor={"pointer"}
           fontFamily={"Montserrat"}
           fontSize={"22px"}
-          borderBottom={showSubMenu ? "solid 1px white" : "none"}
         >
           Entregas
         </Heading>
