@@ -2,7 +2,7 @@ import { Button, Flex, Image, Text } from "@chakra-ui/react";
 import { IUserDetailsOrderProps } from "../../../interfaces/orders.interfaces";
 
 export const CurrentOrdersCard = ({ order }: IUserDetailsOrderProps) => {
-  console.log(order);
+  
 
   const formatHour = (date: Date) => {
     const newDate = new Date(date);

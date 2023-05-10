@@ -94,7 +94,7 @@ export const Cart = () => {
         userDetails?.addresses?.find((address) => address.preferred)?.id
       );
     }
-    console.log(selectedAddress)
+
     const newOrder: ICreateOrder = {
       orderNumber: orderNumber,
       deliveryAddressId: selectedAddress

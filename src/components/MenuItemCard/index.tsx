@@ -61,9 +61,7 @@ export const MenuItensCard = ({ item }: IMenuItemCardProps) => {
         <Flex
           bg="rgb(228, 216, 196, 0.55)"
           borderRadius={"10px"}
-          // p="1rem"
           justify={"space-around"}
-          align={{ base: "center" }}
           gap="1rem"
           w="94%"
           flexDir={{ base: "column", md: "row" }}
@@ -101,7 +99,7 @@ export const MenuItensCard = ({ item }: IMenuItemCardProps) => {
           </Flex>
           <Flex
             bg="#5f4848"
-            p={{ base: "0.5rem"}}
+            p={{ base: "0.5rem" }}
             w={{ base: "100%", md: "15%" }}
             borderTopRightRadius={{ base: "0", md: "10" }}
             borderBottomRightRadius={"10"}

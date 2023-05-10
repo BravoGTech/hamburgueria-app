@@ -43,7 +43,7 @@ export const ContactPage = () => {
   });
 
   const onSubmit = (data: z.infer<typeof contactFormSchema>) => {
-    console.log(data);
+    // console.log(data);
   };
 
   return (

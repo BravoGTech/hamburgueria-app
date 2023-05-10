@@ -56,7 +56,7 @@ export const UsersProvider = ({ children }: IProvider) => {
         setUserDetails(response);
       },
       onError: (error: AxiosError) => {
-        console.log(error);
+        // console.log(error);
       },
     }
   );
@@ -75,7 +75,7 @@ export const UsersProvider = ({ children }: IProvider) => {
         setUserProfile(response);
       },
       onError: (error: AxiosError) => {
-        console.log(error);
+        // console.log(error);
       },
     }
   );

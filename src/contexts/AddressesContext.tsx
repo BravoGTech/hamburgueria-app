@@ -39,7 +39,6 @@ export const AddressesProvider = ({ children }: IProvider) => {
       onSuccess: (response) => {
         toast.success("Endereço adicionado com sucesso");
         setHandleAddress(!handleAddress);
-        console.log(response);
       },
     }
   );
@@ -62,7 +61,6 @@ export const AddressesProvider = ({ children }: IProvider) => {
       onSuccess: (response) => {
         toast.success("Endereço adicionado com sucesso");
         setHandleAddress(!handleAddress);
-        console.log(response);
       },
     }
   );

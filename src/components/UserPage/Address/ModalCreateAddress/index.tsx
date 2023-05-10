@@ -43,7 +43,7 @@ export const ModalCreateAddress = ({ id, isOpen, onClose }: IModalProps) => {
         setCepValue(response.data);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

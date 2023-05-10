@@ -56,14 +56,14 @@ export const OrderProvider = ({ children }: IProvider) => {
     },
     {
       onSuccess: (response) => {
-        console.log(response);
         toast.success("Pedido Efetuado com sucesso");
         localStorage.setItem("cart", "[]");
         navigate("/user");
         return response;
       },
       onError: (error: any) => {
-        console.log(error);
+        // console.log(error);
+        toast.error("Algo não deu certo");
       },
     }
   );
@@ -79,11 +79,13 @@ export const OrderProvider = ({ children }: IProvider) => {
     },
     {
       onSuccess: (response) => {
+        toast.success("Status Atualizado");
         setStatusChange(!statusChange);
         refetch();
       },
       onError: (error: AxiosError) => {
-        console.log(error);
+        toast.error("Algo não deu certo");
+        // console.log(error);
       },
     }
   );
@@ -115,7 +117,7 @@ export const OrderProvider = ({ children }: IProvider) => {
         statusOrder,
         deleteOrder,
         isFetching,
-        statusChange
+        statusChange,
       }}
     >
       {children}

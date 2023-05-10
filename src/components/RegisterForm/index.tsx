@@ -59,7 +59,7 @@ export const RegisterForm = () => {
         setCepValue(response.data);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

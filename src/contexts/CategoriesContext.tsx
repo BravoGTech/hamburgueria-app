@@ -17,7 +17,7 @@ export const CategoriesProvider = ({ children }: IProvider) => {
       const response = await api.get("/category");
       return response.data;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

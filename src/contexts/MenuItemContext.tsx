@@ -44,7 +44,7 @@ export const MenuItemProvider = ({ children }: IProvider) => {
         setMenuItemDetailData(response);
       },
       onError: (error: any) => {
-        console.log(error);
+        // console.log(error);
       },
     }
   );
@@ -89,10 +89,11 @@ export const MenuItemProvider = ({ children }: IProvider) => {
     },
     {
       onSuccess: (response) => {
-        console.log(response);
+        toast.success("Item Atualizado")
       },
       onError: (error: AxiosError) => {
-        console.log(error);
+        toast.error("Algo não deu certo")
+        // console.log(error);
       },
     }
   );
