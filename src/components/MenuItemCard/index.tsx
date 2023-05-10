@@ -58,57 +58,60 @@ export const MenuItensCard = ({ item }: IMenuItemCardProps) => {
         </GridItem>
       </Grid>
       {show && (
-        <Flex
-          bg="rgb(228, 216, 196, 0.55)"
-          borderRadius={"10px"}
-          justify={"space-around"}
-          gap="1rem"
-          w="94%"
-          flexDir={{ base: "column", md: "row" }}
-        >
-          <Image
-            src={item.imageURL}
-            minW={"200px"}
-            w="30%"
-            borderRadius={"20px"}
-            p="1rem"
-          />
-          <Flex flexDir={"column"} w="100%" gap="0.5rem" p="1rem">
-            <Heading
-              fontWeight={"400"}
-              lineHeight={"37.5px"}
-              fontSize="26px"
-              size={"sm"}
-              color="#1E1E1E"
-              textAlign={"center"}
-            >
-              {item.name}
-            </Heading>
-            <Flex flexDir={"column"}>
-              <Heading
-                fontWeight={"bold"}
-                lineHeight={"37.5px"}
-                fontSize="18px"
-                color="#1E1E1E"
-                fontFamily={"montserrat, sans serif"}
-              >
-                Descrição:
-              </Heading>
-              <Text fontFamily={"roboto"}>{item.description}</Text>
-            </Flex>
-          </Flex>
+        <Flex align={"center"} justify={"center"}>
           <Flex
-            bg="#5f4848"
-            p={{ base: "0.5rem" }}
-            w={{ base: "100%", md: "15%" }}
-            borderTopRightRadius={{ base: "0", md: "10" }}
-            borderBottomRightRadius={"10"}
-            cursor={"pointer"}
-            align={"center"}
-            justify={"center"}
-            onClick={onOpen}
+            bg="rgb(228, 216, 196, 0.55)"
+            borderRadius={"10px"}
+            justify={"space-around"}
+            align={{ base: "center", lg: "inherit" }}
+            gap="1rem"
+            w="94%"
+            flexDir={{ base: "column", md: "row" }}
           >
-            <BsCartPlusFill color="white" size={30} />
+            <Image
+              src={item.imageURL}
+              minW={"200px"}
+              w="30%"
+              borderRadius={"20px"}
+              p="1rem"
+            />
+            <Flex flexDir={"column"} w="100%" gap="0.5rem" p="1rem">
+              <Heading
+                fontWeight={"400"}
+                lineHeight={"37.5px"}
+                fontSize="26px"
+                size={"sm"}
+                color="#1E1E1E"
+                textAlign={"center"}
+              >
+                {item.name}
+              </Heading>
+              <Flex flexDir={"column"}>
+                <Heading
+                  fontWeight={"bold"}
+                  lineHeight={"37.5px"}
+                  fontSize="18px"
+                  color="#1E1E1E"
+                  fontFamily={"montserrat, sans serif"}
+                >
+                  Descrição:
+                </Heading>
+                <Text fontFamily={"roboto"}>{item.description}</Text>
+              </Flex>
+            </Flex>
+            <Flex
+              bg="#5f4848"
+              p={{ base: "0.5rem" }}
+              w={{ base: "100%", md: "15%" }}
+              borderTopRightRadius={{ base: "0", md: "10" }}
+              borderBottomRightRadius={"10"}
+              cursor={"pointer"}
+              align={"center"}
+              justify={"center"}
+              onClick={onOpen}
+            >
+              <BsCartPlusFill color="white" size={30} />
+            </Flex>
           </Flex>
         </Flex>
       )}
