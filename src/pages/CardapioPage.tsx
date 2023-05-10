@@ -47,13 +47,13 @@ export const CardapioPage = () => {
         </Button>
       </Flex> */}
       <Container maxW={"8xl"}>
-        <Heading m="3.125rem 0 1.5rem 0">Hamburguers</Heading>
+        <Heading m="3.125rem 0 1.5rem 0">Lanches</Heading>
 
         {isFetching ? (
           <Spinner />
         ) : (
           cardapio.map((item) => {
-            if (item.category.name === "Hamburguers") {
+            if (item.category.name === "Lanches") {
               return (
                 <Fragment key={item.id}>
                   <MenuItensCard item={item} />
@@ -85,7 +85,7 @@ export const CardapioPage = () => {
           <Spinner />
         ) : (
           cardapio.map((item) => {
-            if (item.category.name === "Árabes") {
+            if (item.category.name === "Lanches Árabes") {
               return (
                 <Fragment key={item.id}>
                   <MenuItensCard item={item} />
