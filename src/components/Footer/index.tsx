@@ -16,7 +16,7 @@ export const Footer = () => {
           gap="1rem"
           w="100%"
         >
-          <Heading as="h3" fontSize={"26px"} fontFamily={"Montserrat"}>
+          <Heading as="h3" fontSize={"22px"} fontFamily={"Montserrat"}>
             Endereço
           </Heading>
           <Text textAlign={"center"} fontFamily={"Montserrat"} color="#BFB6AC">
@@ -31,7 +31,7 @@ export const Footer = () => {
         >
           <Heading
             as="h3"
-            fontSize={"26px"}
+            fontSize={"22px"}
             fontFamily={"Montserrat"}
             textAlign="center"
           >
@@ -53,7 +53,7 @@ export const Footer = () => {
           gap="1rem"
           w="100%"
         >
-          <Heading as="h3" fontSize={"26px"} fontFamily={"Montserrat"}>
+          <Heading as="h3" fontSize={"22px"} fontFamily={"Montserrat"}>
             Contatos
           </Heading>
           <Text fontFamily={"Montserrat"} color="#BFB6AC">

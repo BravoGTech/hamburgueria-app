@@ -32,7 +32,7 @@ export const HomePage = () => {
           <Heading fontSize={"55px"} letterSpacing={"5px"}>
             DownTown
           </Heading>
-          <Heading fontSize={"32px"} color="second-color">
+          <Heading fontFamily={"inter"} fontSize={"20px"} color="second-color">
             Sua Hamburgueria gourmet
           </Heading>
           <Text color="#856959" fontFamily={"inter"}>
