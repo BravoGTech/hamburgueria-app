@@ -7,6 +7,7 @@ import {
   FormHelperText,
   FormLabel,
   Input,
+  Text,
   VStack,
 } from "@chakra-ui/react";
 
@@ -18,6 +19,7 @@ import { useContext, useState } from "react";
 import axios from "axios";
 import { ICepAPI } from "../../interfaces/addresses.interfaces";
 import { UsersContext } from "../../contexts/UsersContext";
+import { useNavigate } from "react-router-dom";
 
 export const RegisterForm = () => {
   const { createUser } = useContext(UsersContext);
@@ -26,6 +28,7 @@ export const RegisterForm = () => {
   const [addressComplement, setAddressComplemnt] = useState("");
   const [addressNumber, setAddressNumber] = useState("");
   const [addressPreference, setAddressPreference] = useState(true);
+  const navigate = useNavigate(); 
   const {
     handleSubmit,
     register,
@@ -64,136 +67,158 @@ export const RegisterForm = () => {
   };
 
   return (
-    <Flex
-      as="form"
-      flexDir={{ base: "column", lg: "row" }}
-      onSubmit={handleSubmit(onSubmit)}
-      justify="space-evenly"
-      align={"flex-start"}
-    >
-      <VStack spacing={6}>
-        <FormControl isInvalid={!!errors.name}>
-          <FormLabel color={"primary-color"}>Nome</FormLabel>
-          <Input
-            bg="title-color"
-            borderRadius={"20px"}
-            placeholder="Digite seu nome"
-            {...register("name")}
-          />
-          {!!errors.name && (
-            <FormErrorMessage>{errors.name.message}</FormErrorMessage>
-          )}
-        </FormControl>
-        <FormControl isInvalid={!!errors.email}>
-          <FormLabel color={"primary-color"}>E-mail</FormLabel>
-          <Input
-            placeholder="Digite seu melhor email"
-            {...register("email")}
-            bg="title-color"
-            borderRadius={"20px"}
-          />
-          {!!errors.email ? (
-            <FormErrorMessage>{errors.email.message}</FormErrorMessage>
-          ) : (
-            <FormHelperText>Ex: mail@email.com</FormHelperText>
-          )}
-        </FormControl>
-        <FormControl isInvalid={!!errors.password}>
-          <FormLabel color={"primary-color"}>Senha</FormLabel>
-          <Input
-            type="password"
-            placeholder="Digite sua senha"
-            {...register("password")}
-            bg="title-color"
-            borderRadius={"20px"}
-          />
-          {!!errors.password && (
-            <FormErrorMessage>{errors.password.message}</FormErrorMessage>
-          )}
-        </FormControl>
-        <FormControl isInvalid={!!errors.phoneNumber}>
-          <FormLabel color={"primary-color"}>Telefone</FormLabel>
-          <Input
-            placeholder="Digite seu celular"
-            {...register("phoneNumber")}
-            bg="title-color"
-            borderRadius={"20px"}
-          />
-          {!!errors.phoneNumber && (
-            <FormErrorMessage>{errors.phoneNumber.message}</FormErrorMessage>
-          )}
-        </FormControl>
-      </VStack>
-      <VStack spacing={6}>
-        <FormControl>
-          <FormLabel color={"primary-color"}>CEP</FormLabel>
-          <Input
-            bg="title-color"
-            borderRadius={"20px"}
-            type="text"
-            maxLength={8}
-            onChange={(e) => handleCEP(e.target.value)}
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel color={"primary-color"}>Complemento</FormLabel>
-          <Input
-            bg="title-color"
-            borderRadius={"20px"}
-            type="text"
-            onChange={(e) => setAddressComplemnt(e.target.value)}
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel color={"primary-color"}>Numero</FormLabel>
-          <Input
-            bg="title-color"
-            borderRadius={"20px"}
-            type="text"
-            onChange={(e) => setAddressNumber(e.target.value)}
-          />
-        </FormControl>
-        <FormControl>
-          <Checkbox
-            defaultChecked
-            color="primary-color"
-            size="lg"
-            onChange={(e) => setAddressPreference(e.target.checked)}
-          >
-            Endereço Preferido
-          </Checkbox>
-        </FormControl>
-      </VStack>
-      <VStack spacing={6}>
-        <FormControl>
-          <FormLabel color={"primary-color"}>Endereço</FormLabel>
-          <Input
-            bg="title-color"
-            borderRadius={"20px"}
-            type="text"
-            value={cepValue?.logradouro}
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel color={"primary-color"}>Cidade</FormLabel>
-          <Input
-            bg="title-color"
-            borderRadius={"20px"}
-            type="text"
-            value={cepValue?.localidade}
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel color={"primary-color"}>Estado</FormLabel>
-          <Input
-            bg="title-color"
-            borderRadius={"20px"}
-            type="text"
-            value={cepValue?.uf}
-          />
-        </FormControl>
-        <Button type="submit">Cadastrar</Button>
-      </VStack>
-    </Flex>
+    <>
+      <Flex
+        as="form"
+        flexDir={{ base: "column", lg: "row" }}
+        onSubmit={handleSubmit(onSubmit)}
+        justify="space-evenly"
+        align={"flex-start"}
+      >
+        <VStack spacing={6} w="100%">
+          <FormControl isInvalid={!!errors.name}>
+            <FormLabel color={"primary-color"}>Nome</FormLabel>
+            <Input
+              bg="title-color"
+              borderRadius={"20px"}
+              placeholder="Digite seu nome"
+              {...register("name")}
+            />
+            {!!errors.name && (
+              <FormErrorMessage>{errors.name.message}</FormErrorMessage>
+            )}
+          </FormControl>
+          <FormControl isInvalid={!!errors.email}>
+            <FormLabel color={"primary-color"}>E-mail</FormLabel>
+            <Input
+              placeholder="Digite seu melhor email"
+              {...register("email")}
+              bg="title-color"
+              borderRadius={"20px"}
+            />
+            {!!errors.email ? (
+              <FormErrorMessage>{errors.email.message}</FormErrorMessage>
+            ) : (
+              <FormHelperText color="primary-color">
+                Ex: mail@email.com
+              </FormHelperText>
+            )}
+          </FormControl>
+          <FormControl isInvalid={!!errors.password}>
+            <FormLabel color={"primary-color"}>Senha</FormLabel>
+            <Input
+              type="password"
+              placeholder="Digite sua senha"
+              {...register("password")}
+              bg="title-color"
+              borderRadius={"20px"}
+            />
+            {!!errors.password && (
+              <FormErrorMessage>{errors.password.message}</FormErrorMessage>
+            )}
+          </FormControl>
+          <FormControl isInvalid={!!errors.phoneNumber}>
+            <FormLabel color={"primary-color"}>Telefone</FormLabel>
+            <Input
+              placeholder="Digite seu celular"
+              {...register("phoneNumber")}
+              bg="title-color"
+              borderRadius={"20px"}
+            />
+            {!!errors.phoneNumber && (
+              <FormErrorMessage>{errors.phoneNumber.message}</FormErrorMessage>
+            )}
+          </FormControl>
+        </VStack>
+        <VStack spacing={6} w="100%" p="0 1rem">
+          <FormControl>
+            <FormLabel color={"primary-color"}>CEP</FormLabel>
+            <Input
+              bg="title-color"
+              borderRadius={"20px"}
+              type="text"
+              maxLength={8}
+              onChange={(e) => handleCEP(e.target.value)}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel color={"primary-color"}>Complemento</FormLabel>
+            <Input
+              bg="title-color"
+              borderRadius={"20px"}
+              type="text"
+              onChange={(e) => setAddressComplemnt(e.target.value)}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel color={"primary-color"}>Numero</FormLabel>
+            <Input
+              bg="title-color"
+              borderRadius={"20px"}
+              type="text"
+              onChange={(e) => setAddressNumber(e.target.value)}
+            />
+          </FormControl>
+        </VStack>
+        <VStack spacing={6} w="100%">
+          <FormControl>
+            <FormLabel color={"primary-color"}>Endereço</FormLabel>
+            <Input
+              bg="title-color"
+              borderRadius={"20px"}
+              type="text"
+              value={cepValue?.logradouro}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel color={"primary-color"}>Cidade</FormLabel>
+            <Input
+              bg="title-color"
+              borderRadius={"20px"}
+              type="text"
+              value={cepValue?.localidade}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel color={"primary-color"}>Estado</FormLabel>
+            <Input
+              bg="title-color"
+              borderRadius={"20px"}
+              type="text"
+              value={cepValue?.uf}
+            />
+          </FormControl>
+          <FormControl>
+            <Checkbox
+              defaultChecked
+              color="primary-color"
+              size="lg"
+              onChange={(e) => setAddressPreference(e.target.checked)}
+            >
+              Endereço Preferido
+            </Checkbox>
+          </FormControl>
+          <Button bg="logo-color" w="100%" type="submit">
+            Cadastrar
+          </Button>
+        </VStack>
+      </Flex>
+      <Flex
+        mt="3rem"
+        align={"center"}
+        justify={"center"}
+        flexDir={"column"}
+        gap="0.1rem"
+        cursor={"pointer"}
+        onClick={() => navigate("/login")}
+      >
+        <Text fontSize={"18px"} color="primary-color">
+          Se já possui cadastro
+        </Text>
+        <Text fontSize={"18px"} color="primary-color">
+          Clique aqui para logar
+        </Text>
+      </Flex>
+    </>
   );
 };
