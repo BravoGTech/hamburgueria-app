@@ -63,7 +63,7 @@ export const MenuItensCard = ({ item }: IMenuItemCardProps) => {
             bg="rgb(228, 216, 196, 0.55)"
             borderRadius={"10px"}
             justify={"space-around"}
-            align={{ base: "center", lg: "inherit" }}
+            align={{ base: "center", lg: "normal" }}
             gap="1rem"
             w="94%"
             flexDir={{ base: "column", md: "row" }}
