@@ -1,0 +1,31 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "2023-05-11T22:32:51Z",
+    "title" : "DonwTown_API"
+  },
+  "host" : "bgm1qceg49.execute-api.sa-east-1.amazonaws.com",
+  "basePath" : "/DonwTown",
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/" : {
+      "x-amazon-apigateway-any-method" : {
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "schema" : {
+              "$ref" : "#/definitions/Empty"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Empty" : {
+      "type" : "object",
+      "title" : "Empty Schema"
+    }
+  }
+}

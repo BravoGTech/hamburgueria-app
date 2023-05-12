@@ -46,7 +46,7 @@ export const CardapioPage = () => {
           Bebidas
         </Button>
       </Flex> */}
-      <Container maxW={"8xl"}>
+      <Container maxW={"5xl"}>
         <Heading m="3.125rem 0 1.5rem 0">Lanches</Heading>
 
         {isFetching ? (
