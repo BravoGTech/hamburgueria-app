@@ -68,7 +68,7 @@ export const ModalConfirm = ({ isOpen, onClose, item }: IModalConfirm) => {
   const options = Array.from({ length: 10 }, (_, i) => i + 1);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} size={{ base: "", md: "2xl" }}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Confirmar Pedido</ModalHeader>
@@ -76,7 +76,7 @@ export const ModalConfirm = ({ isOpen, onClose, item }: IModalConfirm) => {
         <ModalBody>
           <Flex gap="1rem" flexDir={{ base: "column", lg: "row" }}>
             <Image
-              w={{base: "100%", lg:"30%"}}
+              w={{ base: "100%", lg: "30%" }}
               src={item.imageURL}
               borderRadius={"10"}
               objectFit={"cover"}
